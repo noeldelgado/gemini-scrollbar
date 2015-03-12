@@ -35,8 +35,10 @@
         }, this);
 
         this.viewElement = this.element.querySelector('.gm-scroll-view');
-        this.thumbVerticalElement = this.element.querySelector('.gm-scrollbar.-vertical .thumb');
-        this.thumbHorizontalElement = this.element.querySelector('.gm-scrollbar.-horizontal .thumb');
+        this.scrollbarVerticalElement = this.element.querySelector('.gm-scrollbar.-vertical');
+        this.thumbVerticalElement = this.scrollbarVerticalElement.querySelector('.thumb');
+        this.scrollbarHorizontalElement = this.element.querySelector('.gm-scrollbar.-horizontal');
+        this.thumbHorizontalElement = this.scrollbarHorizontalElement.querySelector('.thumb');
 
         var scrollbarWidth = Helpers.getScrollbarWidth();
         this.viewElement.style.right = scrollbarWidth + 'px';
@@ -53,6 +55,8 @@
         this.update();
 
         this.viewElement.addEventListener('scroll', this.scrollHandler.bind(this));
+        this.scrollbarVerticalElement.addEventListener('mousedown', this.clickVerticalTrackHandler.bind(this));
+        this.scrollbarHorizontalElement.addEventListener('mousedown', this.clickHorizontalTrackHandler.bind(this));
     }
 
     GeminiScrollbar.prototype.scrollHandler = function(e) {
@@ -60,9 +64,23 @@
         var x = (e.target.scrollLeft * 100 / this.viewElement.clientWidth);
 
         this.thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
-        this.thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
+        return this.thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
+    };
 
-        return this;
+    GeminiScrollbar.prototype.clickVerticalTrackHandler = function(e) {
+        var offset = Math.abs(e.target.getBoundingClientRect().top - e.clientY);
+        var thumbHalf = this.thumbVerticalElement.getBoundingClientRect().height / 2;
+        var thumbPositionPercentage = (offset - thumbHalf) * 100 / this.viewElement.clientHeight;
+
+        return this.viewElement.scrollTop = (thumbPositionPercentage * this.viewElement.scrollHeight / 100);
+    };
+
+    GeminiScrollbar.prototype.clickHorizontalTrackHandler = function(e) {
+        var offset = Math.abs(e.target.getBoundingClientRect().left - e.clientX);
+        var thumbHalf = this.thumbHorizontalElement.getBoundingClientRect().width / 2;
+        var thumbPositionPercentage = (offset - thumbHalf) * 100 / this.viewElement.clientWidth;
+
+        return this.viewElement.scrollLeft = (thumbPositionPercentage * this.viewElement.scrollWidth / 100);
     };
 
     GeminiScrollbar.prototype.update = function() {
@@ -78,7 +96,7 @@
         }
 
         return this;
-    }
+    };
 
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = GeminiScrollbar;
