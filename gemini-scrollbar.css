@@ -18,21 +18,24 @@ body.gm-scrollbar-disable-selection {
   height: 100%;
 }
 
+.gm-scrollbar-container.gm-autoshow .gm-scrollbar {
+  opacity: 0;
+  transition: opacity 60ms linear;
+}
+
+.gm-scrollbar-container.gm-autoshow:hover .gm-scrollbar,
+.gm-scrollbar-container.gm-autoshow:focus .gm-scrollbar {
+  opacity: 1;
+  transition: opacity 340ms ease-out;
+}
+
 .gm-scrollbar-container .gm-scrollbar {
-  /*opacity: 0;
-  transition: opacity 60ms linear;*/
   position: absolute;
   right: 0;
   background-color: rgba(0,0,0,0);
   z-index: 2;
 }
-/*
-.gm-scrollbar-container:hover .gm-scrollbar,
-.gm-scrollbar-container:focus .gm-scrollbar {
-  opacity: 1;
-  transition: opacity 340ms ease-out;
-}
-*/
+
 .gm-scrollbar.-vertical {
   width: 8px;
   top: 0;

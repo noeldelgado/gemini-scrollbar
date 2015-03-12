@@ -28,6 +28,8 @@
     };
 
     function GeminiScrollbar(config) {
+        this.autoshow = false;
+
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
         }, this);
@@ -42,6 +44,10 @@
         if (scrollbarWidth === 0) {
             /* OS X: show scroll bars automatically option is on */
             return document.body.classList.add('gm-hide-custom-scrollbars');
+        }
+
+        if (this.autoshow) {
+            this.element.classList.add('gm-autoshow');
         }
 
         this.update();
