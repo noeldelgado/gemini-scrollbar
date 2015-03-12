@@ -1,0 +1,23 @@
+{
+  "name": "gemini-scrollbar",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/noeldelgado/gemini-scrollbar.git"
+  },
+  "keywords": [
+    "native",
+    "scroll",
+    "skinnable",
+    "custom",
+    "scrollbar"
+  ],
+  "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noeldelgado/gemini-scrollbar/issues"
+  },
+  "homepage": "https://github.com/noeldelgado/gemini-scrollbar",
+  "devDependencies": {}
+}
