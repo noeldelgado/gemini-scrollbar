@@ -1,0 +1,24 @@
+{
+  "name": "gemini-scrollbar",
+  "main": "index.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/noeldelgado/gemini-scrollbar",
+  "authors": [
+    "Noel Delgado <auhcsei@gmail.com>"
+  ],
+  "keywords": [
+    "scrollbar",
+    "scrollbars",
+    "scroll",
+    "native",
+    "custom"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
