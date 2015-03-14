@@ -1,0 +1,93 @@
+.hide {display: none}
+.example-content {
+  padding: 1em;
+  border: 0px solid red;
+}
+
+.inline {
+  display: block;
+  vertical-align: top;
+  margin-right: 2em;
+  border: 1px solid;
+  /*box-shadow: 0 0 0 1px rgba(0,0,0,0.1);*/
+}
+
+html, body {
+  font-family: 'Avenir';
+  font-size: 12px;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/** ---------- 1 ---------- **/
+#example-1 {
+  width: 170px;
+  height: 150px;
+}
+
+#example-1 .scroll-inner {
+  height: 200px;
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;*/
+}
+
+/** ---------- 2 ---------- **/
+#example-2 {
+  width: 370px;
+  height: 200px;
+}
+
+/** ---------- 3 ---------- **/
+#example-3 {
+  width: 170px;
+  height: 200px;
+}
+#example-3 img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 1em 0 0 0;
+}
+#example-3 img:first-of-type {
+  margin-top: 0;
+}
+#example-3 .gm-scrollbar.-vertical .thumb {
+  background-color: hsl(204, 100%, 50%);
+}
+#example-3 .gm-scrollbar.-vertical .thumb:hover {
+  background-color: hsl(204, 100%, 60%);
+}
+#example-3 .gm-scrollbar.-vertical .thumb:after {
+  display: none;
+}
+
+/** ---------- 4 ---------- **/
+#example-4 {
+  width: 170px;
+  height: 200px;
+}
+
+/** ---------- 5 ---------- **/
+#example-5 {
+  width: 200px;
+  height: 120px;
+}
+#example-5 .gm-scroll-view * {
+  width: 1200px;
+}
+
+/** ---------- 6 ---------- **/
+#example-6 {
+  width: 25%;
+  height: 30%;
+}
+
+#example-6 .gm-scroll-view * {
+  width: 1000px;
+}
