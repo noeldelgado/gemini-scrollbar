@@ -29,3 +29,10 @@ var ex5 = new GeminiScrollbar({
 var ex6 = new GeminiScrollbar({
     element: document.querySelector('#example-6'),
 })
+
+var ex7 = new GeminiScrollbar({
+    element: document.querySelector('#example-7')
+})
+window.addEventListener('resize', function() {
+    ex7.update();
+})

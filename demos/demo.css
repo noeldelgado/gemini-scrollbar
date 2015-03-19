@@ -5,11 +5,9 @@
 }
 
 .inline {
-  display: block;
+  display: inline-block;
   vertical-align: top;
-  margin-right: 2em;
   border: 1px solid;
-  /*box-shadow: 0 0 0 1px rgba(0,0,0,0.1);*/
 }
 
 html, body {

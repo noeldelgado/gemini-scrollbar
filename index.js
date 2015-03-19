@@ -23,7 +23,7 @@
             var widthWithScroll = inner.offsetWidth;
             tmpElement.parentNode.removeChild(tmpElement);
 
-            return (widthWithScroll - widthNoScroll);
+            return (widthNoScroll - widthWithScroll);
         }
     };
 
@@ -40,12 +40,14 @@
         this.scrollbarHorizontalElement = this.element.querySelector('.gm-scrollbar.-horizontal');
         this.thumbHorizontalElement = this.scrollbarHorizontalElement.querySelector('.thumb');
 
-        var scrollbarWidth = Helpers.getScrollbarWidth();
-        this.viewElement.style.right = scrollbarWidth + 'px';
-        this.viewElement.style.bottom = scrollbarWidth + 'px';
-        if (scrollbarWidth === 0) {
+        this._SCROLLBAR_WIDTH = Helpers.getScrollbarWidth();
+
+        if (this._SCROLLBAR_WIDTH === 0) {
             /* OS X: show scroll bars automatically option is on */
             return document.body.classList.add('gm-hide-custom-scrollbars');
+        } else {
+            this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
+            this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
         }
 
         if (this.autoshow) {
@@ -125,16 +127,17 @@
     };
 
     GeminiScrollbar.prototype.update = function() {
+        if (this._SCROLLBAR_WIDTH == 0) {
+            return this;
+        }
+
         var heightPercentage = (this.viewElement.clientHeight * 100 / this.viewElement.scrollHeight);
         var widthPercentage = (this.viewElement.clientWidth * 100 / this.viewElement.scrollWidth);
 
-        if (heightPercentage < 100) {
-            this.thumbVerticalElement.style.height = heightPercentage + '%';
-        }
-
-        if (widthPercentage < 100) {
-            this.thumbHorizontalElement.style.width = widthPercentage + '%';
-        }
+        this.thumbVerticalElement.style.height = (heightPercentage < 100) ? (heightPercentage + '%') : '0%';
+        this.thumbHorizontalElement.style.width = (widthPercentage < 100) ? (widthPercentage + '%') : '0%';
+        this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
+        this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
 
         return this;
     };

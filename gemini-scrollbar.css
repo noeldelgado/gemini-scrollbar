@@ -90,12 +90,8 @@ body.gm-scrollbar-disable-selection {
 }
 
 .gm-scrollbar-container .gm-scroll-view {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: -15px;
-  bottom: -15px;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }
