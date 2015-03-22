@@ -6,26 +6,24 @@
  */
 (function() {
 
-    var Helpers = {
-        getScrollbarWidth : function() {
-            /* http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript#answer-13382873 */
-            var tmpElement = document.createElement("div");
-            tmpElement.style.visibility = "hidden";
-            tmpElement.style.width = "100px";
-            tmpElement.style.msOverflowStyle = "scrollbar";
-            document.body.appendChild(tmpElement);
+    var SCROLLBAR_WIDTH = (function() {
+        /* http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript#answer-13382873 */
+        var tmpElement = document.createElement("div");
+        tmpElement.style.visibility = "hidden";
+        tmpElement.style.width = "100px";
+        tmpElement.style.msOverflowStyle = "scrollbar";
+        document.body.appendChild(tmpElement);
 
-            var widthNoScroll = tmpElement.offsetWidth;
-            var inner = document.createElement("div");
-            tmpElement.style.overflow = "scroll";
-            inner.style.width = "100%";
-            tmpElement.appendChild(inner);
-            var widthWithScroll = inner.offsetWidth;
-            tmpElement.parentNode.removeChild(tmpElement);
+        var widthNoScroll = tmpElement.offsetWidth;
+        var inner = document.createElement("div");
+        tmpElement.style.overflow = "scroll";
+        inner.style.width = "100%";
+        tmpElement.appendChild(inner);
+        var widthWithScroll = inner.offsetWidth;
+        tmpElement.parentNode.removeChild(tmpElement);
 
-            return (widthNoScroll - widthWithScroll);
-        }
-    };
+        return (widthNoScroll - widthWithScroll);
+    }());
 
     function GeminiScrollbar(config) {
         this.autoshow = false;
@@ -34,9 +32,7 @@
             this[propertyName] = config[propertyName];
         }, this);
 
-        this._SCROLLBAR_WIDTH = Helpers.getScrollbarWidth();
-
-        if (this._SCROLLBAR_WIDTH === 0) {
+        if (SCROLLBAR_WIDTH === 0) {
             /* OS X: show scroll bars automatically option is on */
             return document.body.classList.add('gm-hide-custom-scrollbars');
         }
@@ -46,23 +42,39 @@
         this.thumbVerticalElement = this.scrollbarVerticalElement.querySelector('.thumb');
         this.scrollbarHorizontalElement = this.element.querySelector('.gm-scrollbar.-horizontal');
         this.thumbHorizontalElement = this.scrollbarHorizontalElement.querySelector('.thumb');
+        this.document = document;
+        this.window = window;
 
         if (this.autoshow) {
             this.element.classList.add('gm-autoshow');
         }
 
         /* bindEvents */
-        this.viewElement.addEventListener('scroll', this._scrollHandler.bind(this));
-        this.scrollbarVerticalElement.addEventListener('mousedown', this._clickVerticalTrackHandler.bind(this));
-        this.scrollbarHorizontalElement.addEventListener('mousedown', this._clickHorizontalTrackHandler.bind(this));
-        this.thumbVerticalElement.addEventListener('mousedown', this._clickVerticalThumbHandler.bind(this));
-        this.thumbHorizontalElement.addEventListener('mousedown', this._clickHorizontalThumbHandler.bind(this));
-        document.addEventListener('mouseup', this._mouseupDocumentHandler.bind(this));
-        document.addEventListener('mousemove', this._mousemoveDocumentHandler.bind(this));
-        window.addEventListener('resize', this.update.bind(this));
+        this._cache = {
+            events: {}
+        };
+
+        this._cache.events.scrollHandler = this._scrollHandler.bind(this);
+        this._cache.events.clickVerticalTrackHandler = this._clickVerticalTrackHandler.bind(this);
+        this._cache.events.clickHorizontalTrackHandler = this._clickHorizontalTrackHandler.bind(this);
+        this._cache.events.clickVerticalThumbHandler = this._clickVerticalThumbHandler.bind(this);
+        this._cache.events.clickHorizontalThumbHandler = this._clickHorizontalThumbHandler.bind(this);
+        this._cache.events.mouseUpDocumentHandler = this._mouseUpDocumentHandler.bind(this);
+        this._cache.events.mouseMoveDocumentHandler = this._mouseMoveDocumentHandler.bind(this);
+        this._cache.events.resizeWindowHandler = this.update.bind(this);
+
+        this.viewElement.addEventListener('scroll', this._cache.events.scrollHandler);
+        this.scrollbarVerticalElement.addEventListener('mousedown', this._cache.events.clickVerticalTrackHandler);
+        this.scrollbarHorizontalElement.addEventListener('mousedown', this._cache.events.clickHorizontalTrackHandler);
+        this.thumbVerticalElement.addEventListener('mousedown', this._cache.events.clickVerticalThumbHandler);
+        this.thumbHorizontalElement.addEventListener('mousedown', this._cache.events.clickHorizontalThumbHandler);
+        this.document.addEventListener('mouseup', this._cache.events.mouseUpDocumentHandler);
+        this.document.addEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
+        this.window.addEventListener('resize', this._cache.events.resizeWindowHandler);
 
         this.update();
     }
+
 
     GeminiScrollbar.prototype._scrollHandler = function(e) {
         var y = (e.target.scrollTop * 100 / this.viewElement.clientHeight);
@@ -104,12 +116,12 @@
         document.body.classList.add('gm-scrollbar-disable-selection');
     };
 
-    GeminiScrollbar.prototype._mouseupDocumentHandler = function(e) {
+    GeminiScrollbar.prototype._mouseUpDocumentHandler = function(e) {
         this.cursorDown = false;
         document.body.classList.remove('scrollbar-disable-selection');
     };
 
-    GeminiScrollbar.prototype._mousemoveDocumentHandler = function(e) {
+    GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
         if (this.cursorDown) {
             var offset = (this.scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1;
             var thumbHalf = this.thumbVerticalElement.getBoundingClientRect().height - this.prevPageY;
@@ -125,14 +137,14 @@
     };
 
     GeminiScrollbar.prototype.update = function() {
-        if (this._SCROLLBAR_WIDTH === 0) {
+        if (SCROLLBAR_WIDTH === 0) {
             return this;
         }
 
         var heightPercentage, widthPercentage;
 
-        this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
-        this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
+        this.viewElement.style.width = this.element.offsetWidth + SCROLLBAR_WIDTH + 'px';
+        this.viewElement.style.height = this.element.offsetHeight + SCROLLBAR_WIDTH + 'px';
 
         heightPercentage = (this.viewElement.clientHeight * 100 / this.viewElement.scrollHeight);
         widthPercentage = (this.viewElement.clientWidth * 100 / this.viewElement.scrollWidth);
@@ -143,6 +155,23 @@
         heightPercentage = widthPercentage = null;
 
         return this;
+    };
+
+    GeminiScrollbar.prototype.destroy = function() {
+        if (SCROLLBAR_WIDTH === 0) {
+            return this;
+        }
+
+        this.viewElement.removeEventListener('scroll', this._cache.events.scrollHandler);
+        this.scrollbarVerticalElement.removeEventListener('mousedown', this._cache.events.clickVerticalTrackHandler);
+        this.scrollbarHorizontalElement.removeEventListener('mousedown', this._cache.events.clickHorizontalTrackHandler);
+        this.thumbVerticalElement.removeEventListener('mousedown', this._cache.events.clickVerticalThumbHandler);
+        this.thumbHorizontalElement.removeEventListener('mousedown', this._cache.events.clickHorizontalThumbHandler);
+        this.document.removeEventListener('mouseup', this._cache.events.mouseUpDocumentHandler);
+        this.document.removeEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
+        this.window.removeEventListener('resize', this._cache.events.resizeWindowHandler);
+
+        return null;
     };
 
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
