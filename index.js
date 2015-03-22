@@ -34,27 +34,22 @@
             this[propertyName] = config[propertyName];
         }, this);
 
+        this._SCROLLBAR_WIDTH = Helpers.getScrollbarWidth();
+
+        if (this._SCROLLBAR_WIDTH === 0) {
+            /* OS X: show scroll bars automatically option is on */
+            return document.body.classList.add('gm-hide-custom-scrollbars');
+        }
+
         this.viewElement = this.element.querySelector('.gm-scroll-view');
         this.scrollbarVerticalElement = this.element.querySelector('.gm-scrollbar.-vertical');
         this.thumbVerticalElement = this.scrollbarVerticalElement.querySelector('.thumb');
         this.scrollbarHorizontalElement = this.element.querySelector('.gm-scrollbar.-horizontal');
         this.thumbHorizontalElement = this.scrollbarHorizontalElement.querySelector('.thumb');
 
-        this._SCROLLBAR_WIDTH = Helpers.getScrollbarWidth();
-
-        if (this._SCROLLBAR_WIDTH === 0) {
-            /* OS X: show scroll bars automatically option is on */
-            return document.body.classList.add('gm-hide-custom-scrollbars');
-        } else {
-            this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
-            this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
-        }
-
         if (this.autoshow) {
             this.element.classList.add('gm-autoshow');
         }
-
-        this.update();
 
         /* bindEvents */
         this.viewElement.addEventListener('scroll', this._scrollHandler.bind(this));
@@ -64,6 +59,9 @@
         this.thumbHorizontalElement.addEventListener('mousedown', this._clickHorizontalThumbHandler.bind(this));
         document.addEventListener('mouseup', this._mouseupDocumentHandler.bind(this));
         document.addEventListener('mousemove', this._mousemoveDocumentHandler.bind(this));
+        window.addEventListener('resize', this.update.bind(this));
+
+        this.update();
     }
 
     GeminiScrollbar.prototype._scrollHandler = function(e) {
@@ -71,7 +69,7 @@
         var x = (e.target.scrollLeft * 100 / this.viewElement.clientWidth);
 
         this.thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
-        return this.thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
+        this.thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
     };
 
     GeminiScrollbar.prototype._clickVerticalTrackHandler = function(e) {
@@ -79,7 +77,7 @@
         var thumbHalf = this.thumbVerticalElement.getBoundingClientRect().height / 2;
         var thumbPositionPercentage = (offset - thumbHalf) * 100 / this.viewElement.clientHeight;
 
-        return this.viewElement.scrollTop = (thumbPositionPercentage * this.viewElement.scrollHeight / 100);
+        this.viewElement.scrollTop = (thumbPositionPercentage * this.viewElement.scrollHeight / 100);
     };
 
     GeminiScrollbar.prototype._clickHorizontalTrackHandler = function(e) {
@@ -87,7 +85,7 @@
         var thumbHalf = this.thumbHorizontalElement.getBoundingClientRect().width / 2;
         var thumbPositionPercentage = (offset - thumbHalf) * 100 / this.viewElement.clientWidth;
 
-        return this.viewElement.scrollLeft = (thumbPositionPercentage * this.viewElement.scrollWidth / 100);
+        this.viewElement.scrollLeft = (thumbPositionPercentage * this.viewElement.scrollWidth / 100);
     };
 
     GeminiScrollbar.prototype._clickVerticalThumbHandler = function(e) {
@@ -95,7 +93,7 @@
         this.cursorDown = true;
         this.prevPageY = e.currentTarget.getBoundingClientRect().height - (e.clientY - e.currentTarget.getBoundingClientRect().top);
 
-        return document.body.classList.add('gm-scrollbar-disable-selection');
+        document.body.classList.add('gm-scrollbar-disable-selection');
     };
 
     GeminiScrollbar.prototype._clickHorizontalThumbHandler = function(e) {
@@ -103,12 +101,12 @@
         this.cursorDown = true;
         this.prevPageX = e.currentTarget.getBoundingClientRect().width - (e.clientX - e.currentTarget.getBoundingClientRect().left);
 
-        return document.body.classList.add('gm-scrollbar-disable-selection');
+        document.body.classList.add('gm-scrollbar-disable-selection');
     };
 
     GeminiScrollbar.prototype._mouseupDocumentHandler = function(e) {
         this.cursorDown = false;
-        return document.body.classList.remove('scrollbar-disable-selection');
+        document.body.classList.remove('scrollbar-disable-selection');
     };
 
     GeminiScrollbar.prototype._mousemoveDocumentHandler = function(e) {
@@ -122,22 +120,27 @@
             var thumbPercentageh = ((offseth-thumbHalfh)) * 100 / this.viewElement.clientWidth;
 
             this.viewElement.scrollTop = (thumbPercentage * this.viewElement.scrollHeight / 100);
-            return this.viewElement.scrollLeft = (thumbPercentageh * this.viewElement.scrollWidth / 100);
+            this.viewElement.scrollLeft = (thumbPercentageh * this.viewElement.scrollWidth / 100);
         }
     };
 
     GeminiScrollbar.prototype.update = function() {
-        if (this._SCROLLBAR_WIDTH == 0) {
+        if (this._SCROLLBAR_WIDTH === 0) {
             return this;
         }
 
-        var heightPercentage = (this.viewElement.clientHeight * 100 / this.viewElement.scrollHeight);
-        var widthPercentage = (this.viewElement.clientWidth * 100 / this.viewElement.scrollWidth);
+        var heightPercentage, widthPercentage;
+
+        this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
+        this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
+
+        heightPercentage = (this.viewElement.clientHeight * 100 / this.viewElement.scrollHeight);
+        widthPercentage = (this.viewElement.clientWidth * 100 / this.viewElement.scrollWidth);
 
         this.thumbVerticalElement.style.height = (heightPercentage < 100) ? (heightPercentage + '%') : '0%';
         this.thumbHorizontalElement.style.width = (widthPercentage < 100) ? (widthPercentage + '%') : '0%';
-        this.viewElement.style.width = this.element.offsetWidth + this._SCROLLBAR_WIDTH + 'px';
-        this.viewElement.style.height = this.element.offsetHeight + this._SCROLLBAR_WIDTH + 'px';
+
+        heightPercentage = widthPercentage = null;
 
         return this;
     };
