@@ -1,5 +1,8 @@
 /* var GeminiScrollbar = require('../'); */
 
+var ex0 = new GeminiScrollbar({
+    element: document.querySelector('#example-0')
+}).create()
 
 var ex1 = new GeminiScrollbar({
     element: document.querySelector('#example-1')
