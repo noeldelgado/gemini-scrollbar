@@ -1,7 +1,3 @@
-body.gm-hide-custom-scrollbars .gm-scrollbar {
-  display: none;
-}
-
 body.gm-scrollbar-disable-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,14 +9,14 @@ body.gm-scrollbar-disable-selection {
 
 .gm-scrollbar-container {
   position: relative;
-  overflow: hidden;
+  overflow: hidden!important;
   width: 100%;
   height: 100%;
 }
 
 .gm-scrollbar-container.gm-autoshow .gm-scrollbar {
   opacity: 0;
-  transition: opacity 60ms linear;
+  transition: opacity 120ms ease-out;
 }
 
 .gm-scrollbar-container.gm-autoshow:hover .gm-scrollbar,
@@ -29,9 +25,10 @@ body.gm-scrollbar-disable-selection {
   transition: opacity 340ms ease-out;
 }
 
-.gm-scrollbar-container .gm-scrollbar {
+.gm-scrollbar {
   position: absolute;
   right: 0;
+  bottom: 0;
   background-color: rgba(0,0,0,0);
   z-index: 2;
 }
@@ -39,19 +36,17 @@ body.gm-scrollbar-disable-selection {
 .gm-scrollbar.-vertical {
   width: 8px;
   top: 0;
-  bottom: 0;
 }
 
 .gm-scrollbar.-horizontal {
   height: 8px;
   left: 0;
-  bottom: 0;
 }
 
 .gm-scrollbar .thumb {
   position: relative;
-  width: 0%;
-  height: 0%;
+  width: 0;
+  height: 0;
   cursor: pointer;
   z-index: 1;
 }

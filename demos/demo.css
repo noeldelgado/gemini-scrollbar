@@ -8,6 +8,7 @@
   display: inline-block;
   vertical-align: top;
   border: 1px solid;
+  overflow: auto;
 }
 
 html, body {
@@ -21,18 +22,28 @@ html, body {
   box-sizing: border-box;
 }
 
+h1 {
+  margin: 0;
+}
+
+/** ---------- 0 ---------- **/
+body > .gm-scrollbar.-vertical {
+  width: 14px;
+}
+body > .gm-scrollbar.-vertical .thumb {
+  background-color: hsl(204, 100%, 50%);
+}
+
+body > .gm-scrollbar.-vertical .thumb:after {
+  display: none;
+}
 /** ---------- 1 ---------- **/
 #example-1 {
   width: 170px;
   height: 150px;
 }
 
-#example-1 .scroll-inner {
-  height: 200px;
-  /*position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;*/
+#example-1 .gm-scroll-view {
 }
 
 /** ---------- 2 ---------- **/
@@ -76,7 +87,7 @@ html, body {
   width: 200px;
   height: 120px;
 }
-#example-5 .gm-scroll-view * {
+#example-5 .example-content {
   width: 1200px;
 }
 
@@ -86,6 +97,6 @@ html, body {
   height: 30%;
 }
 
-#example-6 .gm-scroll-view * {
+#example-6 .example-content {
   width: 1000px;
 }
