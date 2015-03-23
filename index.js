@@ -44,10 +44,8 @@
             this[propertyName] = config[propertyName];
         }, this);
 
-        this._cache = {
-            events: {},
-            dom: {}
-        };
+        this._cache = {events: {}};
+        this._created = false;
         this._cursorDown = false;
         this._prevPageX = 0;
         this._prevPageY = 0;
@@ -63,6 +61,11 @@
 
     GeminiScrollbar.prototype.create = function create() {
         if (SCROLLBAR_WIDTH === 0) return this;
+
+        if (this._created === true) {
+            console.warn('calling on a already-created object');
+            return this;
+        }
 
         if (this.autoshow) {
             this.element.classList.add(CLASSNAMES.autoshow);
@@ -92,11 +95,18 @@
         this.element.appendChild(this._scrollbarHorizontalElement);
         this.element.appendChild(this._viewElement);
 
+        this._created = true;
+
         return this._bindEvents().update();
     };
 
     GeminiScrollbar.prototype.update = function update() {
         if (SCROLLBAR_WIDTH === 0) return this;
+
+        if (this._created === false) {
+            console.warn('calling on a not-yet-created object');
+            return this;
+        }
 
         var heightPercentage, widthPercentage;
 
@@ -115,6 +125,11 @@
     GeminiScrollbar.prototype.destroy = function destroy() {
         if (SCROLLBAR_WIDTH === 0) return this;
 
+        if (this._created === false) {
+            console.warn('calling on a not-yet-created object');
+            return this;
+        }
+
         this._unbinEvents();
 
         this.element.classList.remove(CLASSNAMES.element, CLASSNAMES.autoshow);
@@ -124,6 +139,8 @@
             this.element.appendChild(this._viewElement.childNodes[0]);
         }
         this.element.removeChild(this._viewElement);
+
+        this._created = false;
 
         return null;
     };
