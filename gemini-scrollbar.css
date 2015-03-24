@@ -1,3 +1,4 @@
+/* disable selection while dragging */
 body.gm-scrollbar-disable-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -5,6 +6,11 @@ body.gm-scrollbar-disable-selection {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* fallback for native floating scrollbars (iOS) */
+.gm-smooth-scrolling {
+  -webkit-overflow-scrolling: touch;
 }
 
 .gm-scrollbar-container {
@@ -55,11 +61,11 @@ body.gm-scrollbar-disable-selection {
   content: '';
   position: absolute;
   border-radius: 2px;
-  background-color: #ccc;
+  background-color: rgba(0,0,0,.2);
 }
 
 .gm-scrollbar .thumb:hover:after {
-  background-color: #aaa;
+  background-color: rgba(0,0,0,.3);
 }
 
 .gm-scrollbar.-vertical .thumb {

@@ -33,7 +33,8 @@
         thumb: 'thumb',
         view: 'gm-scroll-view',
         autoshow: 'gm-autoshow',
-        disable: 'gm-scrollbar-disable-selection'
+        disable: 'gm-scrollbar-disable-selection',
+        smoothScrolling: 'gm-smooth-scrolling'
     };
 
     function GeminiScrollbar(config) {
@@ -60,7 +61,10 @@
     }
 
     GeminiScrollbar.prototype.create = function create() {
-        if (SCROLLBAR_WIDTH === 0) return this;
+        if (SCROLLBAR_WIDTH === 0) {
+            this.element.classList.add(CLASSNAMES.smoothScrolling);
+            return this;
+        }
 
         if (this._created === true) {
             console.warn('calling on a already-created object');
