@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gemini-scrollbar - fake app sctructure</title>
+  <link rel="stylesheet" href="../gemini-scrollbar.css">
+  <style>
+    /* global presentation */
+    @font-face {
+      font-family: 'BLOKKRegular';
+      src: url('./assets/fonts/blokk/BLOKKRegular.eot');
+      src: url('./assets/fonts/blokk/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+      url('./assets/fonts/blokk/BLOKKRegular.woff') format('woff'),
+      url('./assets/fonts/blokk/BLOKKRegular.svg#BLOKKRegular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      font-size: 12px;
+      line-height: 1.25rem;
+      font-family: 'BLOKKRegular';
+      color: #777;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    [class^="row"] {
+      float: left;
+    }
+    .row-3 {width: 25%}
+    .row-4 {width: 33.33333333333333%}
+    .row-6 {width: 50%}
+    .row-12 {width: 100%}
+
+
+    .-left {float: left}
+    .-right {float: right}
+    .-clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .-text-center {text-align: center}
+    .-text-right {text-align: right}
+
+    .fake-image {
+      position: relative;
+      min-height: 20vw;
+      background-color: rgba(0,0,0,.05);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      border-right: 1px solid rgba(0,0,0,.06);
+    }
+
+    .fake-image::after {
+      content: '.';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      color: rgba(0,0,0,.16);
+    }
+
+    /* layout for the example */
+    header {
+      padding: 1rem;
+      height: 45px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    footer {
+      padding: .5rem 1em 0;
+      height: 30px;
+      border-top: 1px solid #ccc;
+      background-color: #333;
+    }
+
+    .hero {
+      position: relative;
+      height: 50vh;
+      background-image: linear-gradient(-90deg, #CA9EFF, #9EFFF4);
+    }
+
+    /* will apply scrollbar to this element */
+    .hero .content {
+      height: 100%;
+      overflow: auto;
+    }
+
+    .hero .collapse {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      background-color: #333;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    /* will apply scrollbar to this element */
+    .grid {
+      height: calc(50vh - 45px - 30px);
+      overflow: auto;
+    }
+
+    .collapsed .hero {
+      height: 25vh;
+    }
+
+    .collapsed .grid {
+      height: calc(75vh - 45px - 30px);
+    }
+
+    /* gemini-scrollbar override styles */
+    .gm-scrollbar.-vertical {
+      width: 10px;
+    }
+    .gm-scrollbar.-vertical .thumb:after {
+      width: 6px;
+      border-radius: 3px;
+    }
+
+    .hero .gm-scrollbar .thumb:after {
+      background-color: rgba(58, 255, 244, .5);
+    }
+    .hero .gm-scrollbar .thumb:hover:after {
+      background-color: rgba(58, 255, 244, .7);
+    }
+
+    .grid .gm-scrollbar .thumb:after {
+      background-color: rgba(111, 87, 140, .4);
+    }
+    .grid .gm-scrollbar .thumb:hover:after {
+      background-color: rgba(111, 87, 140, .6);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrapper -clearfix">
+      <div class="col -clearfix">
+        <div class="row-6">
+          <p>ABC</p>
+        </div>
+        <div class="row-6 -text-right">
+          <p>a a a</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="content">
+      <div class="col -clearfix">
+        <div class="row-3">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-3">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-3">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-3">
+          <div class="fake-image"></div>
+        </div>
+        <div class="col -clearfix">
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+        </div>
+        <div class="col -clearfix">
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+        </div>
+        <div class="col -clearfix">
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+        </div>
+        <div class="col -clearfix">
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+        </div>
+        <div class="col -clearfix">
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+          <div class="row-3">
+            <div class="fake-image"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="collapse -text-center">.</div>
+  </section>
+
+  <section class="grid">
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+    <div class="col -clearfix">
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+      <div class="row-3">
+        <div class="fake-image"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrapper -clearfix">
+      <div class="col -clearfix">
+        <div class="row-6">
+          <p>a b c</p>
+        </div>
+        <div class="row-6 -text-right">
+          <p>a b c</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- gemini-scrollbar -->
+  <script src="../index.js"></script>
+
+  <script>
+    window.onload = function() {
+      var timeout;
+      var body = document.body;
+
+      var heroScrollbar = new GeminiScrollbar({
+        element: document.querySelector('.hero .content')
+      });
+
+      var gridScrollbar = new GeminiScrollbar({
+        element: document.querySelector('.grid')
+      });
+
+      document.querySelector('.hero .collapse').addEventListener('click', function() {
+        body.classList.toggle('collapsed');
+        heroScrollbar.update();
+        gridScrollbar.update();
+      });
+
+      heroScrollbar.create();
+      gridScrollbar.create();
+    }
+  </script>
+</body>
+</html>

@@ -4,7 +4,110 @@
   <meta charset="UTF-8">
   <title></title>
   <link rel="stylesheet" href="../gemini-scrollbar.css">
-  <link rel="stylesheet" href="demo.css">
+  <style>
+    .hide {display: none}
+    .example-content {
+      padding: 1em;
+      border: 0px solid red;
+    }
+
+    .inline {
+      display: inline-block;
+      vertical-align: top;
+      border: 1px solid;
+      overflow: auto;
+    }
+
+    html, body {
+      font-family: 'Avenir';
+      font-size: 12px;
+      height: 100%;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    /** ---------- 0 ---------- **/
+    #example-0 {
+      width: 170px;
+      height: 150px;
+    }
+    #example-0:before {
+      content: 'div with no content';
+      color: grey;
+    }
+
+    /** ---------- 1 ---------- **/
+    #example-1 {
+      width: 170px;
+      height: 150px;
+    }
+
+    #example-1 .gm-scroll-view {
+    }
+
+    /** ---------- 2 ---------- **/
+    #example-2 {
+      width: 370px;
+      height: 200px;
+    }
+
+    /** ---------- 3 ---------- **/
+    #example-3 {
+      width: 170px;
+      height: 200px;
+    }
+    #example-3 img {
+      max-width: 100%;
+      display: inline-block;
+      vertical-align: top;
+      margin: 1em 0 0 0;
+    }
+    #example-3 img:first-of-type {
+      margin-top: 0;
+    }
+    #example-3 .gm-scrollbar.-vertical .thumb {
+      background-color: hsl(204, 100%, 50%);
+    }
+    #example-3 .gm-scrollbar.-vertical .thumb:hover {
+      background-color: hsl(204, 100%, 60%);
+    }
+    #example-3 .gm-scrollbar.-vertical .thumb:after {
+      display: none;
+    }
+
+    /** ---------- 4 ---------- **/
+    #example-4 {
+      width: 170px;
+      height: 200px;
+    }
+
+    /** ---------- 5 ---------- **/
+    #example-5 {
+      width: 200px;
+      height: 120px;
+    }
+    #example-5 .example-content {
+      width: 1200px;
+    }
+
+    /** ---------- 6 ---------- **/
+    #example-6 {
+      width: 25%;
+      height: 30%;
+    }
+
+    #example-6 .example-content {
+      width: 1000px;
+    }
+
+  </style>
 </head>
 <body>
 
@@ -102,8 +205,48 @@
   </div>
 </div>
 
+<!-- gemini-scrollbar -->
 <script src="../index.js"></script>
-<script src="demo.js"></script>
-<!-- <script src="bundle.js"></script> -->
+
+<script>
+  window.onload = function() {
+    var ex0 = new GeminiScrollbar({
+        element: document.querySelector('#example-0')
+    }).create()
+
+    var ex1 = new GeminiScrollbar({
+        element: document.querySelector('#example-1')
+    }).create()
+
+    var ex2 = new GeminiScrollbar({
+        element: document.querySelector('#example-2'),
+        autoshow: true
+    }).create()
+
+    var ex3 = new GeminiScrollbar({
+        element: document.querySelector('#example-3')
+    }).create()
+    document.querySelector('#example-3 img').addEventListener('load', function() {
+        ex3.update()
+    })
+
+    var ex4 = new GeminiScrollbar({
+        element: document.querySelector('#example-4')
+    }).create()
+
+    var ex5 = new GeminiScrollbar({
+        element: document.querySelector('#example-5'),
+        horizontal : true
+    }).create()
+
+    var ex6 = new GeminiScrollbar({
+        element: document.querySelector('#example-6'),
+    }).create()
+
+    var ex7 = new GeminiScrollbar({
+        element: document.querySelector('#example-7')
+    }).create()
+  }
+</script>
 </body>
 </html>

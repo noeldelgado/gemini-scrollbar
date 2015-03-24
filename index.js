@@ -233,24 +233,26 @@
     };
 
     GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
-        if (this._cursorDown) {
-            var offset, thumbClickPosition, thumbPositionPercentage;
+        if (this._cursorDown === false) {
+            return;
+        }
 
-            if (this._prevPageY) {
-                offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
-                thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
-                thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientHeight);
+        var offset, thumbClickPosition, thumbPositionPercentage;
 
-                return this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
-            }
+        if (this._prevPageY) {
+            offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
+            thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
+            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientHeight);
 
-            if (this._prevPageX) {
-                offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
-                thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
-                thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientWidth);
+            return this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
+        }
 
-                return this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
-            }
+        if (this._prevPageX) {
+            offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
+            thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
+            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientWidth);
+
+            return this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
         }
     };
 

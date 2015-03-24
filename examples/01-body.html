@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gemini-scrollbar - body example</title>
+  <link rel="stylesheet" href="../gemini-scrollbar.css">
+  <style>
+    /* global presentation */
+    @font-face {
+      font-family: 'BLOKKRegular';
+      src: url('./assets/fonts/blokk/BLOKKRegular.eot');
+      src: url('./assets/fonts/blokk/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+           url('./assets/fonts/blokk/BLOKKRegular.woff') format('woff'),
+           url('./assets/fonts/blokk/BLOKKRegular.svg#BLOKKRegular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      font-size: 12px;
+      line-height: 1.25rem;
+      font-family: 'BLOKKRegular';
+      color: #777;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100vh;
+    }
+
+    .-left {float: left}
+    .-right {float: right}
+    .-clearfix::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    .col {margin-bottom: 2vw}
+
+    [class^="row"] {
+      float: left;
+      padding: 0 1vw;
+    }
+    .row-4 {width: 33.33333333333333%}
+    .row-6 {width: 50%}
+    .row-12 {width: 100%}
+
+    .fake-image {
+      position: relative;
+      min-height: 25vw;
+      background-color: rgba(0,0,0,.05);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+      border-radius: 3px;
+    }
+
+    .fake-image::after {
+      content: '.';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      color: #ccc;
+    }
+
+    /* layout for the example */
+    .wrapper {
+      padding: 0 2rem;
+    }
+
+    header {
+      padding: 2rem 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    header .col {
+      margin-bottom: 0;
+    }
+
+    main {
+      padding-bottom: 1rem;
+    }
+
+    main h4 {
+      margin: 2rem 0;
+    }
+
+    main p {
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      padding: 2rem 0;
+      border-top: 1px solid #ccc;
+    }
+
+    footer .col {
+      margin-bottom: 0;
+    }
+
+    /* gemini-scrollbar override styles */
+    .gm-scrollbar.-vertical {
+      width: 16px;
+      background-color: rgba(0,0,0,.05);
+    }
+    .gm-scrollbar .thumb {
+      background-color: rgba(68, 209, 234, .8);
+    }
+    .gm-scrollbar .thumb:hover {
+      background-color: rgba(68, 209, 234, 1);
+    }
+    .gm-scrollbar .thumb::after {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrapper -clearfix">
+      <div class="col -clearfix">
+        <div class="row-12">
+          <div class="-left">ABC</div>
+          <div class="-right">a a a</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrapper">
+      <div class="col -clearfix">
+        <div class="row-12">
+          <h4>hello</h4>
+          <div class="fake-image"></div>
+        </div>
+      </div>
+
+      <div class="col -clearfix">
+        <div class="row-6">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-6">
+          <div class="fake-image"></div>
+        </div>
+      </div>
+
+      <div class="col -clearfix">
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+      </div>
+
+      <div class="col -clearfix">
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+        <div class="row-4">
+          <div class="fake-image"></div>
+        </div>
+      </div>
+
+      <div class="col -clearfix">
+        <div class="row-12">
+          <h4>hello</h4>
+        </div>
+
+        <div class="row-4">
+          <p>L o r e m i p s u m .</p>
+        </div>
+        <div class="row-4">
+          <p>M a g n a m .</p>
+        </div>
+        <div class="row-4">
+          <p>Q u a m, e a r u m, i t a q u e</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrapper -clearfix">
+      <div class="col -clearfix">
+        <div class="row-12">
+          <div class="-left">ABC</div>
+          <div class="-right">a a a</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- gemini-scrollbar -->
+  <script src="../index.js"></script>
+
+  <script>
+    window.onload = function() {
+      var scrollbar = new GeminiScrollbar({
+        element: document.body
+      }).create();
+    }
+  </script>
+</body>
+</html>
