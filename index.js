@@ -40,6 +40,7 @@
     function GeminiScrollbar(config) {
         this.element = null;
         this.autoshow = false;
+        this.createElements = true;
 
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
@@ -77,13 +78,22 @@
 
         this._document = document;
         this._window = window;
-        this._viewElement = document.createElement('div');
-        this._scrollbarVerticalElement = document.createElement('div');
-        this._thumbVerticalElement = document.createElement('div');
-        this._scrollbarHorizontalElement = document.createElement('div');
-        this._thumbHorizontalElement = document.createElement('div');
-        while(this.element.childNodes.length > 0) {
-            this._viewElement.appendChild(this.element.childNodes[0]);
+
+        if (this.createElements === true) {
+            this._viewElement = document.createElement('div');
+            this._scrollbarVerticalElement = document.createElement('div');
+            this._thumbVerticalElement = document.createElement('div');
+            this._scrollbarHorizontalElement = document.createElement('div');
+            this._thumbHorizontalElement = document.createElement('div');
+            while(this.element.childNodes.length > 0) {
+                this._viewElement.appendChild(this.element.childNodes[0]);
+            }
+        } else {
+            this._viewElement = this.element.querySelector('.' + CLASSNAMES.view);
+            this._scrollbarVerticalElement =this.element.querySelector('.' + CLASSNAMES.verticalScrollbar.split(' ').join('.'));
+            this._thumbVerticalElement = this._scrollbarVerticalElement.querySelector('.' + CLASSNAMES.thumb);
+            this._scrollbarHorizontalElement = this.element.querySelector('.' + CLASSNAMES.horizontalScrollbar.split(' ').join('.'));
+            this._thumbHorizontalElement = this._scrollbarHorizontalElement.querySelector('.' + CLASSNAMES.thumb);
         }
 
         this.element.classList.add(CLASSNAMES.element);
