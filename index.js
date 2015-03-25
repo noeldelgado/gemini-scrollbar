@@ -123,6 +123,8 @@
         this._thumbVerticalElement.style.height = (heightPercentage < 100) ? (heightPercentage + '%') : '';
         this._thumbHorizontalElement.style.width = (widthPercentage < 100) ? (widthPercentage + '%') : '';
 
+        this._scrollHandler();
+
         return this;
     };
 
@@ -183,9 +185,12 @@
         return this;
     };
 
-    GeminiScrollbar.prototype._scrollHandler = function(e) {
-        var y = (e.target.scrollTop * 100 / this._viewElement.clientHeight);
-        var x = (e.target.scrollLeft * 100 / this._viewElement.clientWidth);
+    GeminiScrollbar.prototype._scrollHandler = function() {
+        var viewElement, x, y;
+
+        viewElement = this._viewElement;
+        y = ((viewElement.scrollTop * 100) / viewElement.clientHeight);
+        x = ((viewElement.scrollLeft * 100) / viewElement.clientWidth);
 
         this._thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
         this._thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
@@ -224,7 +229,7 @@
         this._document.addEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
     };
 
-    GeminiScrollbar.prototype._mouseUpDocumentHandler = function(e) {
+    GeminiScrollbar.prototype._mouseUpDocumentHandler = function() {
         this._cursorDown = false;
         this._prevPageX = 0;
         this._prevPageY = 0;
