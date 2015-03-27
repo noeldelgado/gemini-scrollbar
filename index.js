@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version v0.0.3
+ * @version 1.0.0
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -8,7 +8,6 @@
     var SCROLLBAR_WIDTH, CLASSNAMES;
 
     SCROLLBAR_WIDTH = (function() {
-        /* http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript#answer-13382873 */
         var tmpElement = document.createElement("div");
         tmpElement.style.visibility = "hidden";
         tmpElement.style.width = "100px";
