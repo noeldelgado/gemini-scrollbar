@@ -2,7 +2,7 @@
 
 Custom scrollbars with native scrolling.
 
-current version: `1.0.0`
+current version: `1.0.1`
 
 ## Dependencies
 None
