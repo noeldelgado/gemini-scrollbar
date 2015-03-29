@@ -19,11 +19,16 @@
   user-select: none;
 }
 
-/* fallback for native floating scrollbars (iOS) */
-.gm-smooth-scrolling {
+/* fallback for native floating scrollbars */
+.gm-prevented {
   -webkit-overflow-scrolling: touch;
 }
+.gm-prevented .gm-scrollbar {
+  display: none;
+}
 
+
+/* actual gemini-scrollbar styles */
 .gm-scrollbar-container {
   position: relative;
   overflow: hidden!important;
@@ -76,12 +81,11 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* autoshow option */
+/* @option: autoshow */
 .gm-scrollbar-container.gm-autoshow .gm-scrollbar {
   opacity: 0;
   transition: opacity 120ms ease-out;
 }
-
 .gm-scrollbar-container.gm-autoshow:hover .gm-scrollbar,
 .gm-scrollbar-container.gm-autoshow:focus .gm-scrollbar {
   opacity: 1;

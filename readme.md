@@ -91,7 +91,7 @@ You can change the styles of the scrollbars using CSS. Ex:
 
 ## Notes
 
-- **iOS, OS X:** We check the scrollbar's width before doing anything else [using this approach](http://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript#answer-13382873). If the scrollbar width is equal to zero then we do nothing but add the `-webkit-overflow-scrolling: touch;` declaration to the element. No event binding, element creation... nothing, in this case we leave the OS do its job. Why? you already have nice looking scrollbars for free.
+- **iOS, OS X:** We check the scrollbar's width before doing anything else [using this approach](http://davidwalsh.name/detect-scrollbar-width) by David Walsh. If the scrollbar width is equal to zero then we do nothing but add the `gm-prevented` class selector to the element, which adds the `-webkit-overflow-scrolling: touch;` declaration to it and also `display: none;` for the scrollbars. No event binding, element creation... nothing, in this case we leave the OS do its job. Why? you already have nice looking scrollbars for free.
 - **create method:** The custom scrollbars will **not** render until you call the `create` method on the instance. Ex: `myScrollbar.create();`
 - **required height:** To avoid unexpected results, it is recommended that you specify the `height` property with a value to the element you applying the custom scrollbars. 
 - **body tag:** If you want to apply custom scrollbars to `body`, make sure to declare a `height` value either to the `:root` pseudo-class or to the `html` element. Ex:
