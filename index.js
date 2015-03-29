@@ -7,24 +7,6 @@
 (function() {
     var SCROLLBAR_WIDTH, CLASSNAMES;
 
-    SCROLLBAR_WIDTH = (function() {
-        var tmpElement = document.createElement("div");
-        tmpElement.style.visibility = "hidden";
-        tmpElement.style.width = "100px";
-        tmpElement.style.msOverflowStyle = "scrollbar";
-        document.body.appendChild(tmpElement);
-
-        var widthNoScroll = tmpElement.offsetWidth;
-        var inner = document.createElement("div");
-        tmpElement.style.overflow = "scroll";
-        inner.style.width = "100%";
-        tmpElement.appendChild(inner);
-        var widthWithScroll = inner.offsetWidth;
-        tmpElement.parentNode.removeChild(tmpElement);
-
-        return (widthNoScroll - widthWithScroll);
-    }());
-
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
         verticalScrollbar: 'gm-scrollbar -vertical',
@@ -33,8 +15,20 @@
         view: 'gm-scroll-view',
         autoshow: 'gm-autoshow',
         disable: 'gm-scrollbar-disable-selection',
-        smoothScrolling: 'gm-smooth-scrolling'
+        prevented: 'gm-prevented',
+        scrollbarWidthTest: 'gm-test'
     };
+
+    SCROLLBAR_WIDTH = (function() {
+        var scrollDiv = document.createElement("div");
+        scrollDiv.className = CLASSNAMES.scrollbarWidthTest;
+        document.body.appendChild(scrollDiv);
+
+        var scrollbarWidth = (scrollDiv.offsetWidth - scrollDiv.clientWidth);
+        document.body.removeChild(scrollDiv);
+
+        return scrollbarWidth;
+    }());
 
     function GeminiScrollbar(config) {
         this.element = null;
@@ -62,7 +56,7 @@
 
     GeminiScrollbar.prototype.create = function create() {
         if (SCROLLBAR_WIDTH === 0) {
-            this.element.classList.add(CLASSNAMES.smoothScrolling);
+            this.element.classList.add(CLASSNAMES.prevented);
             return this;
         }
 

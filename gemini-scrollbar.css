@@ -1,5 +1,16 @@
+/* @helper: used to measure the scrollbar width on a temporal element */
+.gm-test {
+  visibility: hidden;
+  width: 100px;
+  overflow: scroll;
+  -ms-overflow-style: scrollbar;
+}
+.gm-test::-webkit-scrollbar {
+  width: initial;
+}
+
 /* disable selection while dragging */
-body.gm-scrollbar-disable-selection {
+.gm-scrollbar-disable-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
