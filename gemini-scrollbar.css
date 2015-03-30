@@ -1,7 +1,9 @@
 /* @helper: used to measure the scrollbar width on a temporal element */
 .gm-test {
-  visibility: hidden;
   width: 100px;
+  height: 100px;
+  position: absolute;
+  top: -9999px;
   overflow: scroll;
   -ms-overflow-style: scrollbar;
 }

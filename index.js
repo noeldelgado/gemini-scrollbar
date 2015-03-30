@@ -5,7 +5,7 @@
  * @license MIT
  */
 (function() {
-    var SCROLLBAR_WIDTH, CLASSNAMES;
+    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass;
 
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
@@ -29,6 +29,26 @@
 
         return scrollbarWidth;
     }());
+
+    addClass = function addClass(el, classNames) {
+        if (el.classList) {
+            return classNames.forEach(function(cl) {
+                el.classList.add(cl);
+            });
+        }
+
+        return el.className += ' ' + classNames.join(' ');
+    };
+
+    removeClass = function removeClass(el, classNames) {
+        if (el.classList) {
+            return classNames.forEach(function(cl) {
+                el.classList.remove(cl);
+            });
+        }
+
+        return el.className = el.className.replace(new RegExp('(^|\\b)' + classNames.join('|') + '(\\b|$)', 'gi'), ' ');
+    };
 
     function GeminiScrollbar(config) {
         this.element = null;
@@ -56,7 +76,7 @@
 
     GeminiScrollbar.prototype.create = function create() {
         if (SCROLLBAR_WIDTH === 0) {
-            this.element.classList.add(CLASSNAMES.prevented);
+            addClass(this.element, [CLASSNAMES.prevented]);
             return this;
         }
 
@@ -66,7 +86,7 @@
         }
 
         if (this.autoshow) {
-            this.element.classList.add(CLASSNAMES.autoshow);
+            addClass(this.element, [CLASSNAMES.autoshow]);
         }
 
         this._document = document;
@@ -83,13 +103,13 @@
             }
         } else {
             this._viewElement = this.element.querySelector('.' + CLASSNAMES.view);
-            this._scrollbarVerticalElement =this.element.querySelector('.' + CLASSNAMES.verticalScrollbar.split(' ').join('.'));
+            this._scrollbarVerticalElement = this.element.querySelector('.' + CLASSNAMES.verticalScrollbar.split(' ').join('.'));
             this._thumbVerticalElement = this._scrollbarVerticalElement.querySelector('.' + CLASSNAMES.thumb);
             this._scrollbarHorizontalElement = this.element.querySelector('.' + CLASSNAMES.horizontalScrollbar.split(' ').join('.'));
             this._thumbHorizontalElement = this._scrollbarHorizontalElement.querySelector('.' + CLASSNAMES.thumb);
         }
 
-        this.element.classList.add(CLASSNAMES.element);
+        addClass(this.element, [CLASSNAMES.element]);
         this._viewElement.className = CLASSNAMES.view;
         this._scrollbarVerticalElement.className = CLASSNAMES.verticalScrollbar;
         this._scrollbarHorizontalElement.className = CLASSNAMES.horizontalScrollbar;
@@ -141,7 +161,7 @@
 
         this._unbinEvents();
 
-        this.element.classList.remove(CLASSNAMES.element, CLASSNAMES.autoshow);
+        removeClass(this.element, [CLASSNAMES.element, CLASSNAMES.autoshow]);
         this.element.removeChild(this._scrollbarVerticalElement);
         this.element.removeChild(this._scrollbarHorizontalElement);
         while(this._viewElement.childNodes.length > 0) {
@@ -195,7 +215,9 @@
         y = ((viewElement.scrollTop * 100) / viewElement.clientHeight);
         x = ((viewElement.scrollLeft * 100) / viewElement.clientWidth);
 
+        this._thumbVerticalElement.style.msTransform = 'translateY(' + y + '%)';
         this._thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
+        this._thumbHorizontalElement.style.msTransform = 'translateX(' + x + '%)';
         this._thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
     };
 
@@ -228,16 +250,18 @@
     GeminiScrollbar.prototype._startDrag = function(e) {
         e.stopImmediatePropagation();
         this._cursorDown = true;
-        document.body.classList.add(CLASSNAMES.disable);
+        addClass(document.body, [CLASSNAMES.disable]);
         this._document.addEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
+        this._document.onselectstart = function() {return false};
     };
 
     GeminiScrollbar.prototype._mouseUpDocumentHandler = function() {
         this._cursorDown = false;
         this._prevPageX = 0;
         this._prevPageY = 0;
-        document.body.classList.remove(CLASSNAMES.disable);
+        removeClass(document.body, [CLASSNAMES.disable]);
         this._document.removeEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
+        this._document.onselectstart = null;
     };
 
     GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
