@@ -41,6 +41,7 @@
   right: 2px;
   bottom: 2px;
   z-index: 1;
+  border-radius: 3px;
 }
 
 .gm-scrollbar.-vertical {
@@ -58,11 +59,12 @@
   width: 0;
   height: 0;
   cursor: pointer;
-  border-radius: 3px;
-  background-color: rgba(0,0,0,.2);
+  border-radius: inherit;
+  background-color: rgba(0,0,0,.2);;
 }
 
-.gm-scrollbar .thumb:hover {
+.gm-scrollbar .thumb:hover,
+.gm-scrollbar .thumb:active {
   background-color: rgba(0,0,0,.3);
 }
 

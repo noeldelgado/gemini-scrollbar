@@ -127,14 +127,19 @@
     }
 
     /* gemini-scrollbar override styles */
+    .gm-scrollbar {
+      border-radius: 4px;
+    }
+
     .gm-scrollbar.-vertical {
       width: 8px;
     }
+
     .gm-scrollbar .thumb {
       background-color: rgba(111, 87, 140, .4);
-      border-radius: 4px;
     }
-    .gm-scrollbar .thumb:hover {
+    .gm-scrollbar .thumb:hover,
+    .gm-scrollbar .thumb:active {
       background-color: rgba(111, 87, 140, .6);
     }
   </style>

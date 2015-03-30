@@ -107,6 +107,7 @@
     /* gemini-scrollbar override styles */
     .gm-scrollbar {
       right: 0;
+      border-radius: 0;
     }
     .gm-scrollbar.-vertical {
       width: 14px;
@@ -115,10 +116,10 @@
       background-color: rgba(0,0,0,.05);
     }
     .gm-scrollbar .thumb {
-      border-radius: 0;
       background-color: rgba(68, 209, 234, .8);
     }
-    .gm-scrollbar .thumb:hover {
+    .gm-scrollbar .thumb:hover,
+    .gm-scrollbar .thumb:active {
       background-color: rgba(68, 209, 234, 1);
     }
   </style>
