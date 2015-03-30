@@ -1,0 +1,571 @@
+@import (css) '/node_modules/sanitize.css/dist/sanitize.css';
+@import '_base';
+@import (css) '/node_modules/gemini-scrollbar/gemini-scrollbar.css';
+
+
+.forkme {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.demo-container {
+  padding-bottom: 2em;
+  text-shadow:  none;
+
+  .container {
+    background-color: tint(#E4E9EB, 40);
+    border-radius: 3px;
+    padding: 3em 0;
+    box-shadow: 0 0 0 2px #E4E9EB;
+  }
+
+  .sample {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .gm-scrollbar-container {
+    z-index: 0;
+  }
+
+  .credits {
+    font-size: .8em;
+    padding: 1.5em 0 2em;
+    text-align: center;
+    opacity: .5;
+    font-weight: bold;
+  }
+}
+
+body {
+  > .gm-scrollbar {
+    &.-vertical {
+      left: 6px;
+      right: initial;
+      top: 6px;
+      bottom: 6px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .thumb {
+      background-color: @link-color;
+
+      &:hover,
+      &:active {
+        background-color: tint(@link-color, 20);
+      }
+    }
+  }
+}
+
+/* EXAMPLE 01 */
+@bg: #282E36;
+@blue: #B8DBFC;
+@red: #FBCACB;
+@green: #518F29;
+
+.ex1 {
+  font-size: 12px;
+
+  /* custom-scrollbars */
+  .gm-scrollbar.-vertical {
+    top: 14px;
+    right: 10px;
+    bottom: 14px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.ex1 .container {
+  .sample {
+    position: relative;
+    width: 200px;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      height: 3px;
+      border-width: 0 1px 1px;
+      border-style: none solid solid;
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+
+    &:before {
+      width: 96%;
+      margin-left: 2%;
+      background-color: shade(#fff, 8%);
+    }
+
+    &:after {
+      width: 94%;
+      margin: 3px 0 0 3%;
+      background-color: shade(#fff, 12%);
+    }
+  }
+
+  header {
+    font-size: 1.1em;
+    padding: .2em;
+    letter-spacing: 1px;
+    background-image: linear-gradient(to bottom, tint(@bg, 10%), shade(@bg, 10%));
+    color: white;
+    text-shadow: 0 -1px 0 shade(@bg, 30%);
+    text-align: center;
+    font-weight: bold;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .list-container {
+    height: 200px;
+    overflow: auto;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+  }
+
+  ul {
+    position: relative;
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background-color: @red;
+    }
+
+    &:before {
+      left: 2em;
+    }
+
+    &:after {
+      left: 2.4em;
+    }
+  }
+
+  li {
+    font-size: .9em;
+    padding: .25em 1em .25em 3em;
+    min-height: 27px;
+    border-bottom: 1px solid @blue;
+    color: #999;
+    font-weight: bold;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:before {
+      position: relative;
+      left: -2.2em;
+    }
+
+    &.ok {
+      color: #555;
+
+      &:before {
+        content: '✔';
+        color: @green;
+      }
+    }
+
+    &.not {
+      &:before {
+        content: '✖';
+        color: @red;
+      }
+    }
+  }
+}
+
+
+
+/* EXAMPLE 02 */
+@code-color: #8B8A90;
+.ex2 {
+  /* custom scrollbars */
+  .gm-scrollbar {
+    background-color: #F3F4F8;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #E8E8EA;
+
+    &.-horizontal {
+      height: 10px;
+      left: 10px;
+      right: 10px;
+    }
+
+    &.-vertical {
+      display: none;
+    }
+
+    .thumb {
+      background-color: #fff;
+      box-shadow: inset 0 0 0 1px #C4C4C6;
+    }
+  }
+
+  .container {
+    background-color: #fdfdfd;
+  }
+
+  .sample {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding: 3em 0 1.5em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      border-width: 0 1px 1px;
+      border-style: none solid solid;
+      border-color: rgba(0, 0, 0, 0.25);
+      border-radius: 0 0 2px 2px;
+    }
+
+    &:before {
+      width: 99%;
+      bottom: -3px;
+      margin-left: .5%;
+      background-color: shade(#fff, 8%);
+    }
+
+    &:after {
+      width: 98%;
+      bottom: -5px;
+      margin: 0 0 0 1%;
+      background-color: shade(#fff, 12%);
+    }
+  }
+
+  .editor {
+    background-image: linear-gradient(to bottom, tint(@blue, 20%) 0, transparent 1px);
+    background-size: 1px 20px;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: tint(@red, 60%);
+      z-index: 2;
+    }
+
+    &:before {
+      left: 40px;
+    }
+
+    &:after {
+      left: 44px;
+    }
+  }
+
+  .numbers {
+    position: absolute;
+    left: 0;
+    top: 36px;
+    width: 40px;
+    font-size: 13px;
+    line-height: 17px;
+    font-family: monospace;
+    text-align: right;
+    counter-reset: linecounter;
+
+    li {
+      position: relative;
+      counter-increment: linecounter;
+      height: 20px;
+      line-height: 21px;
+      padding-right: .5em;
+
+      &:before {
+        content: counter(linecounter) + '.';
+        color: tint(@code-color, 40%);
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        top: 1px;
+        left: 100%;
+        width: 15px;
+        background-image: linear-gradient(to right, white, transparent);
+        z-index: 1;
+      }
+    }
+  }
+
+  .code-wrapper {
+    height: 245px;
+    padding-left: 46px;
+  }
+
+  .code {
+    overflow: auto;
+  }
+
+  pre {
+    white-space: initial;
+    overflow: visible;
+    margin: 0;
+    padding: 0 1em;
+    background-color: transparent;
+    color: @code-color;
+    box-shadow: none;
+  }
+
+  .line {
+    display: block;
+    white-space: nowrap;
+    height: 20px;
+    line-height: 21px;
+  }
+}
+
+
+
+/* EXAMPLE 03 */
+.ex3 {
+  /* custom scrollbars */
+  .gm-scrollbar {
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+    width: 12px;
+    border-radius: 6px;
+
+    &.-horizontal {
+      display: none;
+    }
+
+    .thumb {
+      background-image: linear-gradient(to bottom, #F5CA47, #EFB436);
+      box-shadow: inset 0 1px 0 tint(#F5CA47, 40%);
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 7px;
+        height: 7px;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0) 1px);
+        background-size: 1px 2px;
+      }
+
+      &:hover,
+      &:active {
+        background-image: linear-gradient(to bottom, lighten(#F5CA47, 5), lighten(#EFB436, 5));
+      }
+    }
+  }
+
+  .container {
+    background-color: #E9B222;
+  }
+
+  .sample {
+    padding: 2em 1.5em 2em 2em;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .title {
+    margin: 0;
+    text-transform: initial;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: .4em;
+  }
+
+  .meta {
+    margin-bottom: 2em;
+    font-size: .9em;
+    color: rgba(255,255,255,.5);
+  }
+
+  .text {
+    padding-right: 2em;
+    p {
+      font-size: 1.1em;
+      margin-bottom: 1.5em;
+      line-height: 1.6em;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .box {
+    height: 300px;
+    overflow: auto;
+    color: #fff;
+  }
+}
+
+
+/* EXAMPLE 04 */
+.ex4 {
+  /* custom scrollbar */
+  .gm-scrollbar.-vertical {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 17px;
+    border-left: 1px solid #CECECE;
+    padding: 10px 5px;
+    border-radius: 0;
+
+    .thumb {
+      border-radius: 3px;
+    }
+  }
+
+  .container {
+    background-color: #fff;
+  }
+
+  .sample {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-image: linear-gradient(to bottom, rgba(0,0,0,.1), transparent);
+    }
+  }
+
+  .manilla {
+    font-size: 13px;
+    height: 250px;
+    overflow: auto;
+    font-family: Courier;
+    border: 1px solid #CECECE;
+    background-color: #FEFFED;
+    color: #222;
+
+    .inner {
+      padding: 1.5em 2em 1.5em 1.5em;
+    }
+  }
+}
+
+.ex5 {
+  /* custom scrollbar */
+  .gm-scrollbar {
+    background-color: rgba(0,0,0,.15);
+    box-shadow:
+      inset 0 1px 3px rgba(0, 0, 0, 0.5),
+      inset 0 0 2px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+
+    &.-vertical {
+      width: 6px;
+      bottom: 20px;
+    }
+
+    &.-horizontal {
+      display: none;
+    }
+
+    .thumb {
+      background-color: #F8F8F8;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        0 1px 1px rgba(0,0,0,.5);
+
+      &:hover,
+      &:active {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .sample {
+    overflow: auto;
+    height: 200px;
+
+    h2 {
+      margin: 0 0 1em;
+    }
+  }
+
+  .inner {
+    padding: 1em 1.5em 1em 0;
+  }
+}
+
+.ex6 {
+  /* custom scrollbar */
+  .gm-scrollbar {
+    box-shadow: inset 0 0 0 2px #fff;
+    border-radius: 5px;
+
+    .thumb {
+      background-color: #fff;
+      box-shadow: 0 0 0 2px #D85426;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 4px;
+        height: 5px;
+        background-image: linear-gradient(to bottom, #D85426 0, rgba(0, 0, 0, 0) 1px);
+        background-size: 1px 2px;
+      }
+    }
+
+    &.-vertical {
+      width: 10px;
+    }
+
+    &.-horizontal {
+      display: none;
+    }
+  }
+
+  .container {
+    background-color: #D85426;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .sample {
+    overflow: auto;
+    height: 200px;
+
+    h2 {
+      margin: 0 0 1em;
+    }
+  }
+
+  .simplistic {
+    padding: 1em 1.5em 1em 0;
+  }
+}

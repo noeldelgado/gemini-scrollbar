@@ -1,0 +1,20 @@
+{
+  "name": "gemini-scrollbar-gh-page",
+  "scripts": {
+    "start": "npm i autoprefixer -g && npm i less -g && npm i watch -g && npm i browserify -g && npm i watchify -g && npm i live-reload -g",
+    "js:browserify": "browserify src/js/app.js -o build/bundle.js",
+    "js:watch": "watchify src/js/app.js -o build/bundle.js -v",
+    "css:prefix": "autoprefixer -b 'last 2 versions' build/bundle.css",
+    "css:less": "lessc src/less/app.less build/bundle.css",
+    "css:watch": "watch 'npm run css:less && npm run css:prefix' src/less",
+    "css:build": "lessc -x src/less/app.less build/bundle.css",
+    "livereload": "live-reload --port 9091 build/",
+    "build": "npm run css:build && npm run js:build"
+  },
+  "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "gemini-scrollbar": "^1.0.1",
+    "sanitize.css": "^1.1.0"
+  }
+}
