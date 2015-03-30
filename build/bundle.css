@@ -1,5 +1,31 @@
-@import '/node_modules/sanitize.css/dist/sanitize.css';
-@import '/node_modules/gemini-scrollbar/gemini-scrollbar.css';
+/*! sanitize.css | CC0 Public Domain | github.com/jonathantneal/sanitize.css */
+pre,textarea{overflow:auto}
+:root{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%;box-sizing:border-box;cursor:default;font-family:sans-serif;line-height:1.5em;text-rendering:optimizeLegibility;vertical-align:top}
+[hidden],audio:not([controls]),template{display:none}
+details,main,summary{display:block}
+input[type=number]{width:auto}
+input[type=search]{-webkit-appearance:textfield}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+progress{display:inline-block}
+small{font-size:75%}
+textarea{resize:vertical}
+[unselectable]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+*,::after,::before{box-sizing:inherit;color:inherit;font-family:inherit;font-size:inherit;line-height:inherit;text-decoration:inherit;vertical-align:inherit;border-style:solid;border-width:0}
+*{margin:0;padding:0;cursor:inherit}
+a,button,input,select,textarea{cursor:initial}
+button,input,select,textarea{background:0 0}
+code,kbd,pre,samp{font-family:monospace,monospace}
+input{min-height:1.5em}
+nav ol,nav ul{list-style:none}
+select{-moz-appearance:none;-webkit-appearance:none}
+select::-ms-expand{display:none}
+select::-ms-value{color:currentColor}
+table{border-collapse:collapse;border-spacing:0}
+::-moz-selection{background-color:#B3D4FC;text-shadow:none}
+::selection{background-color:#B3D4FC;text-shadow:none}
+@media screen{[hidden~=screen]{display:inherit}
+[hidden~=screen]:not(:active):not(:focus):not(:target){clip:rect(0 0 0 0)!important;position:absolute!important}
+}
 html {
   height: 100%;
 }
@@ -105,6 +131,103 @@ footer {
     padding-right: 20px;
   }
 }
+/* @helper: used to measure the scrollbar width on a temporal element */
+.gm-test {
+  visibility: hidden;
+  width: 100px;
+  overflow: scroll;
+  -ms-overflow-style: scrollbar;
+}
+.gm-test::-webkit-scrollbar {
+  width: initial;
+}
+
+/* disable selection while dragging */
+.gm-scrollbar-disable-selection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* fallback for native floating scrollbars */
+.gm-prevented {
+  -webkit-overflow-scrolling: touch;
+}
+.gm-prevented .gm-scrollbar {
+  display: none;
+}
+
+
+/* actual gemini-scrollbar styles */
+.gm-scrollbar-container {
+  position: relative;
+  overflow: hidden!important;
+  width: 100%;
+  height: 100%;
+}
+
+.gm-scrollbar {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  z-index: 1;
+  border-radius: 3px;
+}
+
+.gm-scrollbar.-vertical {
+  width: 6px;
+  top: 2px;
+}
+
+.gm-scrollbar.-horizontal {
+  height: 6px;
+  left: 2px;
+}
+
+.gm-scrollbar .thumb {
+  position: relative;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  border-radius: inherit;
+  background-color: rgba(0,0,0,.2);;
+}
+
+.gm-scrollbar .thumb:hover,
+.gm-scrollbar .thumb:active {
+  background-color: rgba(0,0,0,.3);
+}
+
+.gm-scrollbar.-vertical .thumb {
+  width: 100%;
+}
+
+.gm-scrollbar.-horizontal .thumb {
+  height: 100%;
+}
+
+.gm-scrollbar-container .gm-scroll-view {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* @option: autoshow */
+.gm-scrollbar-container.gm-autoshow .gm-scrollbar {
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+}
+.gm-scrollbar-container.gm-autoshow:hover .gm-scrollbar,
+.gm-scrollbar-container.gm-autoshow:focus .gm-scrollbar {
+  opacity: 1;
+  transition: opacity 340ms ease-out;
+}
+
+
 .forkme {
   position: absolute;
   top: 0;
