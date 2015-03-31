@@ -1,12 +1,12 @@
-<h1> 
-gemini-scrollbar 
-<sup style="font-size: .45em">
-<code>1.0.2</code>
-</sup>
-</h1>
+# gemini-scrollbar
 
-Custom overlay scrollbars with native scrolling mechanism.
+Custom overlay-scrollbars with native scrolling mechanism (when needed).
 
+###### Problem
+
+Nowadays, many OS's provides “overlay-scrollbars” natively. Those scrollbars looks nice and works well (mostly mobile browsers). I am OK with that, but while building web apps you may still found yourself searching on how to customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your designs. e.g: “*having a sidebar with a dark-background + native-**non-floating**-scrollbars*” ...hum, ugly.
+
+Well, gemini-scrollbar was built just for that. First, it checks the scrollbar size, if the scrollbar size is equal to zero (which means the scrollbars are “over the content”) then it does nothing, otherwise it “hides” the original scrollbar (leaving its functionality intact) and creates a new pair of “scrollbars” made of `div`s that you can fully customize with CSS. Those “scrollbars” will update its position while scrolling for visual feedback and will also respond if you click or drag them.
 
 ## Demo
 [http://noeldelgado.github.io/gemini-scrollbar/](http://noeldelgado.github.io/gemini-scrollbar/)
@@ -105,7 +105,7 @@ You can change the styles of the scrollbars using CSS. e.g:
 
 ## Notes
 
-- **native overlay-scrollbar:** We check the scrollbar size before doing anything else [using this approach](http://davidwalsh.name/detect-scrollbar-width) by David Walsh. If the scrollbar width is equal to zero (which means the scrollbars are “over the content”) then we do nothing but add the `gm-prevented` class selector to the element, which adds the `-webkit-overflow-scrolling: touch;` declaration to it and also `display: none;` for the gemini-scrollbar's elements. No event binding, element creation... nothing, in this case we leave the OS do its job. Why? you already have nice looking scrollbars for free.
+- **native overlay-scrollbar:** We check the scrollbar size before doing anything else [using this approach](http://davidwalsh.name/detect-scrollbar-width) by David Walsh. If the scrollbar size is equal to zero (which means the scrollbars are “over the content”) then we do nothing but add the `gm-prevented` class selector to the element, which adds the `-webkit-overflow-scrolling: touch;` declaration to it and also `display: none;` for the gemini-scrollbar's elements. No event binding, element creation... nothing, in this case we leave the OS do its job. Why? you already have nice looking scrollbars for free.
 - **create method:** The custom scrollbars will **not** render until you call the `create` method on the instance. i.e: `myScrollbar.create();`
 - **required height:** To avoid unexpected results, it is recommended that you specify the `height` property with a value to the element you applying the custom scrollbars.
 - **body tag:** If you want to apply custom scrollbars to `body`, make sure to declare a `height` value either to the `:root` pseudo-class or to the `html` element. e.g:
@@ -115,6 +115,7 @@ You can change the styles of the scrollbars using CSS. e.g:
 		height: 100%;
 		/* or */
 		height: 100vh;
+		overflow: hidden;
 	}
 	```
 - **createElements option:** The `createElements` option specify wheater or not gemini-scrollbar should create and append the require HTMLElements at runtime. Its default value is `true`. Passing this option as `false` will assume that you to have added the required markup with the specific CSS class selectors on them for it to work. i.e:
