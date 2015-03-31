@@ -26,9 +26,6 @@ table{border-collapse:collapse;border-spacing:0}
 @media screen{[hidden~=screen]{display:inherit}
 [hidden~=screen]:not(:active):not(:focus):not(:target){clip:rect(0 0 0 0)!important;position:absolute!important}
 }
-html {
-  height: 100%;
-}
 body {
   background-color: #fafafa;
   color: #686c6e;
@@ -52,10 +49,7 @@ h1 {
   font-weight: 200;
 }
 h2 {
-  margin: 25px 0 30px;
-}
-h2 small {
-  opacity: .5;
+  margin: 25px 0;
 }
 ul {
   list-style: none;
@@ -230,11 +224,27 @@ footer {
 }
 
 
+html {
+  height: 100%;
+  overflow: hidden;
+}
 .forkme {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 1;
+}
+.title small {
+  font-size: .4em;
+  opacity: .6;
+}
+h2 small {
+  display: block;
+  opacity: .6;
+  font-style: italic;
+}
+.problem h2 {
+  margin-bottom: 1em;
 }
 .demo-container {
   padding-bottom: 2em;
@@ -258,7 +268,7 @@ footer {
   font-size: .8em;
   padding: 1.5em 0 2em;
   text-align: center;
-  opacity: .5;
+  opacity: .6;
   font-weight: bold;
 }
 body > .gm-scrollbar.-vertical {
@@ -431,7 +441,7 @@ body > .gm-scrollbar .thumb:active {
   background-color: #e0e0e0;
 }
 .ex2 .editor {
-  background-image: linear-gradient(to bottom, #c6e2fd 0, transparent 1px);
+  background-image: linear-gradient(to bottom, #c6e2fd 0, rgba(255, 255, 255, 0) 1px);
   background-size: 1px 20px;
 }
 .ex2 .editor:before,
@@ -475,11 +485,11 @@ body > .gm-scrollbar .thumb:active {
 .ex2 .numbers li:after {
   content: '';
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   top: 1px;
   left: 100%;
-  width: 15px;
-  background-image: linear-gradient(to right, white, transparent);
+  width: 25px;
+  background-image: linear-gradient(to right, white 50%, rgba(255, 255, 255, 0));
   z-index: 1;
 }
 .ex2 .code-wrapper {

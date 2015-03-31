@@ -28,11 +28,35 @@
       <div class="wrapper">
 
         <section class="intro">
-          <h1><strong>gemini-scrollbar</strong> custom scrollbars with native scrolling.</h1>
+          <h1 class="title">
+            <strong>gemini-scrollbar</strong> custom overlay-scrollbars with native scrolling mechanism
+            <small>(when needed)</small>
+          </h1>
           <p><b>NPM</b></p>
           <pre><code>npm i gemini-scrollbar --save</code></pre>
           <p><b>BOWER</b></p>
           <pre><code>bower install gemini-scrollbar --save</code></pre>
+        </section>
+
+        <section class="problem">
+          <h2>PROBLEM DESCRIPTION</h2>
+          <p>
+            Nowadays, many OS's provides “overlay-scrollbars”. Those scrollbars looks nice and works well (mostly mobile
+            browsers). I am OK with that, but building web apps, you may still found yourself searching on how to
+            customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your
+            designs. e.g: <i>“having a sidebar with a dark-background + native-<b>non</b>-floating-scrollbars” ...hum,
+            ugly.</i>
+          </p>
+
+          <p>
+            Well, I built this just for that. First, it checks the
+            <a href="http://davidwalsh.name/detect-scrollbar-width">scrollbar size</a>, if the scrollbar size is equal
+            to zero (which means the scrollbars are “over the content”) then <b>it does nothing</b>, otherwise it
+            “hides” the original scrollbar (<b>leaving its functionality intact</b>) and creates a new pair of
+            “scrollbars” made of <code>div</code>s that you can fully customize with CSS. Those “scrollbars” will
+            update its position while scrolling for visual feedback and will also respond if you click or drag them.
+          </p>
+
         </section>
 
         <section class="demo">
