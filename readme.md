@@ -2,11 +2,19 @@
 
 Custom overlay-scrollbars with native scrolling mechanism (when needed).
 
-###### Problem
+###### Problem Description
 
-Nowadays, many OS's provides “overlay-scrollbars” natively. Those scrollbars looks nice and works well (mostly mobile browsers). I am OK with that, but while building web apps you may still found yourself searching on how to customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your designs. e.g: “*having a sidebar with a dark-background + native-**non-floating**-scrollbars*” ...hum, ugly.
+Nowadays, many OS's provides “overlay-scrollbars” natively. Those scrollbars looks nice and works well (mostly mobile browsers). I am OK with that, but while building web apps you may still found yourself searching on how to customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your designs. e.g: “*having a sidebar with a dark-background + native-**non-floating**-scrollbars*” ...hum, ugly. Even when this problem can be merely visual, for me is a way of enhancing the user experience.
 
-Well, gemini-scrollbar was built just for that. First, it checks the scrollbar size, if the scrollbar size is equal to zero (which means the scrollbars are “over the content”) then it does nothing, otherwise it “hides” the original scrollbar (leaving its functionality intact) and creates a new pair of “scrollbars” made of `div`s that you can fully customize with CSS. Those “scrollbars” will update its position while scrolling for visual feedback and will also respond if you click or drag them.
+###### Constraints
+ 
+- Fallback to the native scrollbars when the OS/browser supports “overlay-scrollbars” natively
+- Mimic the native scrollbar behaviour when replaced with the custom ones (click, drag...)
+- IE9+ support
+
+###### Solution Proposal
+
+First, we check the scrollbar size, if the scrollbar size is equal to zero (which means the scrollbars are already “over the content” natively) then we **do nothing**, otherwise we “hide” the native scrollbar (**leaving its functionality intact**) and create a new pair of “scrollbars” made of `div`s that you can fully customize with CSS. Those “scrollbars” will update its position while scrolling for visual feedback and will also respond if you click or drag them.
 
 ## Demo
 [http://noeldelgado.github.io/gemini-scrollbar/](http://noeldelgado.github.io/gemini-scrollbar/)
