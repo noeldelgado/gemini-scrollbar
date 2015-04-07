@@ -1,6 +1,6 @@
 # gemini-scrollbar
 
-Custom overlay-scrollbars with native scrolling mechanism (when needed).
+Custom overlay-scrollbars with native scrolling mechanism for web applications (when needed).
 
 ###### Problem Description
 
