@@ -1,3 +1,10 @@
+## 1.1.2 (2015-04-06)
+
+Features:
+
+- Safari support
+  - added webkitTranslate for thumb position change
+
 ## 1.0.2 (2015-03-29)
 
 Features:
