@@ -216,8 +216,11 @@
         x = ((viewElement.scrollLeft * 100) / viewElement.clientWidth);
 
         this._thumbVerticalElement.style.msTransform = 'translateY(' + y + '%)';
+        this._thumbVerticalElement.style.webkitTransform = 'translateY(' + y + '%)';
         this._thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
+
         this._thumbHorizontalElement.style.msTransform = 'translateX(' + x + '%)';
+        this._thumbHorizontalElement.style.webkitTransform = 'translateX(' + x + '%)';
         this._thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
     };
 
