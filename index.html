@@ -37,29 +37,36 @@
         </section>
 
         <section class="problem">
-          <h2>PROBLEM DESCRIPTION</h2>
+          <h2 class="upper">Problem Description</h2>
           <p>
             Nowadays, many OS's provides “overlay-scrollbars”. Those scrollbars looks nice and works well (mostly mobile
             browsers). I am OK with that, but building web apps, you may still found yourself searching on how to
             customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your
-            designs. e.g: <i>“having a sidebar with a dark-background + native-<b>non</b>-floating-scrollbars on them” 
-            ...hum, ugly.</i>
+            designs. e.g: <i>“having a sidebar with a dark-background + native-<b>non</b>-floating-scrollbars on them”</i>
+            ...hum, ugly. Yes, the problem can be merely visual, but for me is a way of enhancing the user experience.
           </p>
 
+          <h2 class="upper">Constraints</h2>
+          <ul class="-standard">
+            <li>Fallback to the native scrollbars when the OS/browser supports “overlay-scrollbars” natively</li>
+            <li>Mimic the native scrollbar behaviour when replaced with the custom ones (click, drag...)</li>
+            <li>IE9+ support</li>
+          </ul>
+
+          <h2 class="upper">Solution Proposal</h2>
           <p>
-            Well, <code>gemini-scrollbar</code> was built just for that. First, it checks the
-            <a href="http://davidwalsh.name/detect-scrollbar-width" rel="external">scrollbar size</a>, if the scrollbar
-            size is equal to zero (which means the scrollbars are “over the content”) then <b>it does nothing</b>,
-            otherwise it “hides” the original scrollbar (<b>leaving its functionality intact</b>) and creates a new
-            pair of “scrollbars” made of <code>div</code>s that you can fully customize with
-            <abrr title="Cascading Style Sheets">CSS</abrr>. Those “scrollbars” will update its position while
+            First, we check the <a href="http://davidwalsh.name/detect-scrollbar-width" rel="external">scrollbar size</a>,
+            if the scrollbar size is equal to zero (which means the scrollbars are already “over the content” natively)
+            then <b>we do nothing</b>, otherwise we “hide” the native scrollbar (<b>leaving its functionality
+            intact</b>) and create a new pair of “scrollbars” made of <code>div</code>s that you can fully customize
+            with <abrr title="Cascading Style Sheets">CSS</abrr>. Those “scrollbars” will update its position while
             scrolling for visual feedback and will also respond if you click or drag them.
           </p>
 
         </section>
 
         <section class="demo">
-          <h2>EXAMPLES <small>(for demo purposes, not intended to be perfect shot replicas)</small></h2>
+          <h2 class="upper">Functional Examples <small>(for demo purposes, not intended to be perfect shot replicas)</small></h2>
 
           <article class="demo-container ex1">
             <div class="container">
@@ -219,7 +226,7 @@
         </section>
 
         <section class="license">
-          <h2>LICENSE</h2>
+          <h2 class="upper">License</h2>
           <p>Copyright &copy; Noel Delgado.</p>
           <p>Licensed under the MIT License</p>
           <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>

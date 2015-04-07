@@ -54,6 +54,11 @@ h2 {
 ul {
   list-style: none;
 }
+ul.-standard {
+  margin-bottom: 1em;
+  padding-left: 2em;
+  list-style: initial;
+}
 .main-content {
   padding-top: 4em;
 }
@@ -79,6 +84,9 @@ section:last-child {
 }
 .center {
   text-align: center;
+}
+.upper {
+  text-transform: uppercase;
 }
 .button {
   float: left;
@@ -125,6 +133,13 @@ footer {
     padding-right: 20px;
   }
 }
+/**
+ * gemini-scrollbar
+ * @version 1.1.2
+ * @link http://noeldelgado.github.io/gemini-scrollbar/
+ * @license MIT
+ */
+
 /* @helper: used to measure the scrollbar width on a temporal element */
 .gm-test {
   width: 100px;
@@ -189,7 +204,7 @@ footer {
   height: 0;
   cursor: pointer;
   border-radius: inherit;
-  background-color: rgba(0,0,0,.2);;
+  background-color: rgba(0,0,0,.2);
 }
 
 .gm-scrollbar .thumb:hover,
