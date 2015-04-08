@@ -1,12 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * gemini-scrollbar
- * @version 1.1.2
+ * @version 1.1.3
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
 (function() {
-    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass;
+    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
 
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
@@ -20,7 +20,7 @@
         scrollbarWidthTest: 'gm-test'
     };
 
-    SCROLLBAR_WIDTH = (function() {
+    getScrollbarWidth = function getScrollbarWidth() {
         var scrollDiv = document.createElement("div");
         scrollDiv.className = CLASSNAMES.scrollbarWidthTest;
         document.body.appendChild(scrollDiv);
@@ -29,7 +29,7 @@
         document.body.removeChild(scrollDiv);
 
         return scrollbarWidth;
-    }());
+    };
 
     addClass = function addClass(el, classNames) {
         if (el.classList) {
@@ -59,6 +59,8 @@
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
         }, this);
+
+        SCROLLBAR_WIDTH = getScrollbarWidth();
 
         this._cache = {events: {}};
         this._created = false;

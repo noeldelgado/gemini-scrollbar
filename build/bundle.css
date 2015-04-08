@@ -135,7 +135,7 @@ footer {
 }
 /**
  * gemini-scrollbar
- * @version 1.1.2
+ * @version 1.1.3
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -148,9 +148,6 @@ footer {
   top: -9999px;
   overflow: scroll;
   -ms-overflow-style: scrollbar;
-}
-.gm-test::-webkit-scrollbar {
-  width: initial;
 }
 
 /* disable selection while dragging */
