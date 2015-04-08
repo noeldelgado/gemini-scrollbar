@@ -14,9 +14,6 @@
   overflow: scroll;
   -ms-overflow-style: scrollbar;
 }
-.gm-test::-webkit-scrollbar {
-  width: initial;
-}
 
 /* disable selection while dragging */
 .gm-scrollbar-disable-selection {
