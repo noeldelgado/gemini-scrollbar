@@ -5,7 +5,7 @@
  * @license MIT
  */
 (function() {
-    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass;
+    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
 
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
@@ -19,7 +19,7 @@
         scrollbarWidthTest: 'gm-test'
     };
 
-    SCROLLBAR_WIDTH = (function() {
+    getScrollbarWidth = function getScrollbarWidth() {
         var scrollDiv = document.createElement("div");
         scrollDiv.className = CLASSNAMES.scrollbarWidthTest;
         document.body.appendChild(scrollDiv);
@@ -28,7 +28,7 @@
         document.body.removeChild(scrollDiv);
 
         return scrollbarWidth;
-    }());
+    };
 
     addClass = function addClass(el, classNames) {
         if (el.classList) {
@@ -58,6 +58,8 @@
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
         }, this);
+
+        SCROLLBAR_WIDTH = getScrollbarWidth();
 
         this._cache = {events: {}};
         this._created = false;
