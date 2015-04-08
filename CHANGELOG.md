@@ -1,3 +1,10 @@
+## 1.1.3 (2015-04-08)
+
+Bugfixes:
+
+- OS X: showing custom scrollbars even when having overlayed ones natively [#1](https://github.com/noeldelgado/gemini-scrollbar/issues/1)
+- Prevent error when loading the script on the `head` :/ [#2](https://github.com/noeldelgado/gemini-scrollbar/issues/2)
+
 ## 1.1.2 (2015-04-06)
 
 Features:
