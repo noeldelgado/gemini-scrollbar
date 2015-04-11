@@ -113,9 +113,10 @@ You can change the styles of the scrollbars using CSS. e.g:
 
 ## Notes
 
-- **native overlay-scrollbar:** We check the scrollbar size before doing anything else [using this approach](http://davidwalsh.name/detect-scrollbar-width) by David Walsh. If the scrollbar size is equal to zero (which means the scrollbars are “over the content”) then we do nothing but add the `gm-prevented` class selector to the element, which adds the `-webkit-overflow-scrolling: touch;` declaration to it and also `display: none;` for the gemini-scrollbar's elements. No event binding, element creation... nothing, in this case we leave the OS do its job. Why? you already have nice looking scrollbars for free.
+- **native overlay-scrollbar:** We check the scrollbar size before doing anything else [using this approach](http://davidwalsh.name/detect-scrollbar-width) by David Walsh. If the scrollbar size is equal to zero (which means the scrollbars are “over the content”) then we do nothing but add the `gm-prevented` class selector to the element, which contains the non-standard `-webkit-overflow-scrolling: touch;` declaration for web devices to use momentum-based scrolling and also helps “hidding” the gemini-scrollbar's elements using `display: none;` (beacause we are not going to use them anyway). No event binding, element creation... nothing, in this case we leave the OS/browser do its job. Why? you already have nice looking scrollbars for free.
+- **::-webkit-scrollbar:** If you plan to use gemini-scrollbar on your application I highly recommend you removing any Webkit scrollbar styles you may have, why? using the `-webkit-` prefixed pseudo elements will cause Webkit turning off its build-in scrollbar rendering, interfering with our scrollbar-size-check. You can read a bit more about this issue on [this commit](../../issues/1).
 - **create method:** The custom scrollbars will **not** render until you call the `create` method on the instance. i.e: `myScrollbar.create();`
-- **required height:** To avoid unexpected results, it is recommended that you specify the `height` property with a value to the element you applying the custom scrollbars.
+- **required height:** To avoid unexpected results, it is recommended that you specify the `height` property with a value to the element you applying the custom scrollbars (or to its parent).
 - **body tag:** If you want to apply custom scrollbars to `body`, make sure to declare a `height` value either to the `:root` pseudo-class or to the `html` element. e.g:
 
 	```css
