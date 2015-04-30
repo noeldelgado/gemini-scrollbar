@@ -1,3 +1,9 @@
+## 1.2.3 (2015-04-29)
+
+Features:
+
+- Added `getViewElement` method that returns the scrollable element, useful if you want check its properties such as scrollHeight or add/remove content
+
 ## 1.1.3 (2015-04-08)
 
 Bugfixes:

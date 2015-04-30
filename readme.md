@@ -87,6 +87,7 @@ name | description
 create | Bind the events, create the required elements and display the scrollbars.
 update | Recalculate the viewbox and scrollbar dimensions.
 destroy | Unbind the events and remove the custom scrollbar elements.
+getViewElement | Returns the scrollable element
 
 ## Customization
 

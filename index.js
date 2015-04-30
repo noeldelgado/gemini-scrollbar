@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.1.3
+ * @version 1.2.3
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -174,6 +174,10 @@
         this._created = false;
 
         return null;
+    };
+
+    GeminiScrollbar.prototype.getViewElement = function() {
+        return this._viewElement;
     };
 
     GeminiScrollbar.prototype._bindEvents = function() {
