@@ -37,7 +37,7 @@
             });
         }
 
-        return el.className += ' ' + classNames.join(' ');
+        el.className += ' ' + classNames.join(' ');
     };
 
     removeClass = function removeClass(el, classNames) {
@@ -47,7 +47,7 @@
             });
         }
 
-        return el.className = el.className.replace(new RegExp('(^|\\b)' + classNames.join('|') + '(\\b|$)', 'gi'), ' ');
+        el.className = el.className.replace(new RegExp('(^|\\b)' + classNames.join('|') + '(\\b|$)', 'gi'), ' ');
     };
 
     function GeminiScrollbar(config) {
@@ -261,7 +261,7 @@
         this._cursorDown = true;
         addClass(document.body, [CLASSNAMES.disable]);
         this._document.addEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
-        this._document.onselectstart = function() {return false};
+        this._document.onselectstart = function() {return false;};
     };
 
     GeminiScrollbar.prototype._mouseUpDocumentHandler = function() {
@@ -285,7 +285,9 @@
             thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientHeight);
 
-            return this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
+            this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
+
+            return;
         }
 
         if (this._prevPageX) {
@@ -293,7 +295,7 @@
             thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientWidth);
 
-            return this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
+            this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
         }
     };
 
