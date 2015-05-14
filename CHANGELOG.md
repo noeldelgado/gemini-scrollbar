@@ -1,3 +1,9 @@
+## 1.2.4 (2015-05-13)
+
+Bugfixes:
+
+- getViewElement method returning null if the scroll bars were not created
+
 ## 1.2.3 (2015-04-29)
 
 Features:
