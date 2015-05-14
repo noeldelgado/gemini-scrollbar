@@ -69,7 +69,7 @@
 
         this._document = null;
         this._window = null;
-        this._viewElement = null;
+        this._viewElement = this.element;
         this._scrollbarVerticalElement = null;
         this._thumbVerticalElement = null;
         this._scrollbarHorizontalElement = null;
