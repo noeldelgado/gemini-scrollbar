@@ -1,3 +1,9 @@
+## 1.2.5 (2015-06-21)
+
+Bugfixes:
+
+- [#7](../../issues/7) do not remove elements when calling the `destroy` method if the `createElements` option was set to `false`
+
 ## 1.2.4 (2015-05-13)
 
 Bugfixes:

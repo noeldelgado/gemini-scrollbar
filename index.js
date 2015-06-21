@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.2.4
+ * @version 1.2.5
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -112,6 +112,7 @@
         }
 
         addClass(this.element, [CLASSNAMES.element]);
+        removeClass(this.element, [CLASSNAMES.prevented]);
         this._viewElement.className = CLASSNAMES.view;
         this._scrollbarVerticalElement.className = CLASSNAMES.verticalScrollbar;
         this._scrollbarHorizontalElement.className = CLASSNAMES.horizontalScrollbar;
@@ -163,6 +164,14 @@
 
         this._unbinEvents();
 
+        if (this.createElements === false) {
+            addClass(this.element, [CLASSNAMES.prevented]);
+            this._viewElement.style.width = '';
+            this._viewElement.style.height = '';
+            this._created = false;
+            return null;
+        }
+
         removeClass(this.element, [CLASSNAMES.element, CLASSNAMES.autoshow]);
         this.element.removeChild(this._scrollbarVerticalElement);
         this.element.removeChild(this._scrollbarHorizontalElement);
@@ -172,6 +181,8 @@
         this.element.removeChild(this._viewElement);
 
         this._created = false;
+        this._document = null;
+        this._window = null;
 
         return null;
     };
