@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.2.5
+ * @version 1.2.6
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -244,7 +244,7 @@
     GeminiScrollbar.prototype._clickVerticalTrackHandler = function(e) {
         var offset = Math.abs(e.target.getBoundingClientRect().top - e.clientY);
         var thumbHalf = (this._thumbVerticalElement.offsetHeight / 2);
-        var thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._viewElement.clientHeight);
+        var thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._scrollbarVerticalElement.offsetHeight);
 
         this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
     };
@@ -252,7 +252,7 @@
     GeminiScrollbar.prototype._clickHorizontalTrackHandler = function(e) {
         var offset = Math.abs(e.target.getBoundingClientRect().left - e.clientX);
         var thumbHalf = (this._thumbHorizontalElement.offsetWidth / 2);
-        var thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._viewElement.clientWidth);
+        var thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._scrollbarHorizontalElement.offsetWidth);
 
         this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
     };
@@ -294,7 +294,7 @@
         if (this._prevPageY) {
             offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
             thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
-            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientHeight);
+            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarVerticalElement.offsetHeight);
 
             this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
 
@@ -304,7 +304,7 @@
         if (this._prevPageX) {
             offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
             thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
-            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._viewElement.clientWidth);
+            thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarHorizontalElement.offsetWidth);
 
             this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
         }

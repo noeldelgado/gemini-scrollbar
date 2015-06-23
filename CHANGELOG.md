@@ -1,3 +1,9 @@
+## 1.2.6 (2015-06-23)
+
+Bugfixes:
+
+- [#9](../../issues/9) better support for scrollbars with offset positions
+
 ## 1.2.5 (2015-06-21)
 
 Bugfixes:
