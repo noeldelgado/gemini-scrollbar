@@ -1,3 +1,11 @@
+## 1.2.7 (2015-06-28)
+
+Bugfixes:
+
+- do not re-append elements on `create` if `createElements` option is `false`
+- do not add `gm-prevented` after destroy
+- clean document and window references on `destroy` for `reateElements: false`
+
 ## 1.2.6 (2015-06-23)
 
 Bugfixes:
