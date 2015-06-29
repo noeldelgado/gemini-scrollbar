@@ -87,9 +87,7 @@
             return this;
         }
 
-        if (this.autoshow) {
-            addClass(this.element, [CLASSNAMES.autoshow]);
-        }
+        if (this.autoshow) addClass(this.element, [CLASSNAMES.autoshow]);
 
         this._document = document;
         this._window = window;
@@ -277,17 +275,14 @@
 
     GeminiScrollbar.prototype._mouseUpDocumentHandler = function() {
         this._cursorDown = false;
-        this._prevPageX = 0;
-        this._prevPageY = 0;
+        this._prevPageX = this._prevPageY = 0;
         removeClass(document.body, [CLASSNAMES.disable]);
         this._document.removeEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
         this._document.onselectstart = null;
     };
 
     GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
-        if (this._cursorDown === false) {
-            return;
-        }
+        if (this._cursorDown === false) return;
 
         var offset, thumbClickPosition, thumbPositionPercentage;
 
@@ -295,9 +290,7 @@
             offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
             thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarVerticalElement.offsetHeight);
-
             this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
-
             return;
         }
 
@@ -305,12 +298,10 @@
             offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
             thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarHorizontalElement.offsetWidth);
-
             this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
         }
     };
 
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-        module.exports = GeminiScrollbar;
-    } else window.GeminiScrollbar = GeminiScrollbar;
+    if (typeof exports === 'object') module.exports = GeminiScrollbar;
+    else window.GeminiScrollbar = GeminiScrollbar;
 })();
