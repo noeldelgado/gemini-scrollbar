@@ -1,3 +1,9 @@
+## 1.2.8 (2015-07-18)
+
+Bugfixes:
+
+- do not remove class selectors if the markup is already defined (createElements: false)
+
 ## 1.2.7 (2015-06-28)
 
 Bugfixes:

@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.2.7
+ * @version 1.2.8
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -87,7 +87,9 @@
             return this;
         }
 
-        if (this.autoshow) addClass(this.element, [CLASSNAMES.autoshow]);
+        if (this.autoshow) {
+            addClass(this.element, [CLASSNAMES.autoshow]);
+        }
 
         this._document = document;
         this._window = window;
@@ -98,7 +100,9 @@
             this._thumbVerticalElement = document.createElement('div');
             this._scrollbarHorizontalElement = document.createElement('div');
             this._thumbHorizontalElement = document.createElement('div');
-            while(this.element.childNodes.length > 0) this._viewElement.appendChild(this.element.childNodes[0]);
+            while(this.element.childNodes.length > 0) {
+                this._viewElement.appendChild(this.element.childNodes[0]);
+            }
 
             this._scrollbarVerticalElement.appendChild(this._thumbVerticalElement);
             this._scrollbarHorizontalElement.appendChild(this._thumbHorizontalElement);
@@ -114,11 +118,11 @@
         }
 
         addClass(this.element, [CLASSNAMES.element]);
-        this._viewElement.className = CLASSNAMES.view;
-        this._scrollbarVerticalElement.className = CLASSNAMES.verticalScrollbar;
-        this._scrollbarHorizontalElement.className = CLASSNAMES.horizontalScrollbar;
-        this._thumbVerticalElement.className = CLASSNAMES.thumb;
-        this._thumbHorizontalElement.className = CLASSNAMES.thumb;
+        addClass(this._viewElement.className, [CLASSNAMES.view]);
+        addClass(this._scrollbarVerticalElement.className, [CLASSNAMES.verticalScrollbar]);
+        addClass(this._scrollbarHorizontalElement.className, [CLASSNAMES.horizontalScrollbar]);
+        addClass(this._thumbVerticalElement.className, [CLASSNAMES.thumb]);
+        addClass(this._thumbHorizontalElement.className, [CLASSNAMES.thumb]);
 
         this._scrollbarVerticalElement.style.display = '';
         this._scrollbarHorizontalElement.style.display = '';
@@ -129,7 +133,9 @@
     };
 
     GeminiScrollbar.prototype.update = function update() {
-        if (SCROLLBAR_WIDTH === 0) return this;
+        if (SCROLLBAR_WIDTH === 0) {
+            return this;
+        }
 
         if (this._created === false) {
             console.warn('calling on a not-yet-created object');
@@ -153,7 +159,9 @@
     };
 
     GeminiScrollbar.prototype.destroy = function destroy() {
-        if (SCROLLBAR_WIDTH === 0) return this;
+        if (SCROLLBAR_WIDTH === 0) {
+            return this;
+        }
 
         if (this._created === false) {
             console.warn('calling on a not-yet-created object');
@@ -167,7 +175,9 @@
         if (this.createElements === true) {
             this.element.removeChild(this._scrollbarVerticalElement);
             this.element.removeChild(this._scrollbarHorizontalElement);
-            while(this._viewElement.childNodes.length > 0) this.element.appendChild(this._viewElement.childNodes[0]);
+            while(this._viewElement.childNodes.length > 0) {
+                this.element.appendChild(this._viewElement.childNodes[0]);
+            }
             this.element.removeChild(this._viewElement);
         } else {
             this._viewElement.style.width = '';
@@ -279,7 +289,9 @@
     };
 
     GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
-        if (this._cursorDown === false) return;
+        if (this._cursorDown === false) {
+            return void 0;
+        }
 
         var offset, thumbClickPosition, thumbPositionPercentage;
 
@@ -288,7 +300,7 @@
             thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarVerticalElement.offsetHeight);
             this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
-            return;
+            return void 0;
         }
 
         if (this._prevPageX) {
@@ -299,6 +311,9 @@
         }
     };
 
-    if (typeof exports === 'object') module.exports = GeminiScrollbar;
-    else window.GeminiScrollbar = GeminiScrollbar;
+    if (typeof exports === 'object') {
+        module.exports = GeminiScrollbar;
+    } else {
+        window.GeminiScrollbar = GeminiScrollbar;
+    }
 })();
