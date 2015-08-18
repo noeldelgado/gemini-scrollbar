@@ -1,3 +1,9 @@
+## 1.2.9 (2015-08-17)
+
+Bugfixes:
+
+- [#11](../../issues/11) Classnames don’t get added to the elements
+
 ## 1.2.8 (2015-07-18)
 
 Bugfixes:

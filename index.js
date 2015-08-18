@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.2.8
+ * @version 1.2.9
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -118,11 +118,11 @@
         }
 
         addClass(this.element, [CLASSNAMES.element]);
-        addClass(this._viewElement.className, [CLASSNAMES.view]);
-        addClass(this._scrollbarVerticalElement.className, [CLASSNAMES.verticalScrollbar]);
-        addClass(this._scrollbarHorizontalElement.className, [CLASSNAMES.horizontalScrollbar]);
-        addClass(this._thumbVerticalElement.className, [CLASSNAMES.thumb]);
-        addClass(this._thumbHorizontalElement.className, [CLASSNAMES.thumb]);
+        addClass(this._viewElement, [CLASSNAMES.view]);
+        addClass(this._scrollbarVerticalElement, CLASSNAMES.verticalScrollbar.split(/\s/));
+        addClass(this._scrollbarHorizontalElement, CLASSNAMES.horizontalScrollbar.split(/\s/));
+        addClass(this._thumbVerticalElement, [CLASSNAMES.thumb]);
+        addClass(this._thumbHorizontalElement, [CLASSNAMES.thumb]);
 
         this._scrollbarVerticalElement.style.display = '';
         this._scrollbarHorizontalElement.style.display = '';
