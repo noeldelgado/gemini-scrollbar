@@ -5,12 +5,14 @@
 
 Custom overlay-scrollbars with native scrolling mechanism for web applications (when needed).
 
+*There is a **React** wrapper too — [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar).*
+
 ###### Problem Description
 
 Nowadays, many OS's provides “overlay-scrollbars” natively. Those scrollbars looks nice and works well (mostly mobile browsers). I am OK with that, but while building web apps you may still found yourself searching on how to customize the remaining portion of ‘ugly’ scrollbars out there, specially when they do not fit with your designs. e.g: “*having a sidebar with a dark-background + native-**non-floating**-scrollbars*” ...hum, ugly. Even when this problem can be merely visual, for me is a way of enhancing the user experience.
 
 ###### Constraints
- 
+
 - Fallback to the native scrollbars when the OS/browser supports “overlay-scrollbars” natively
 - Mimic the native scrollbar behaviour when replaced with the custom ones (click, drag...)
 - IE9+ support
