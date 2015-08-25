@@ -5,7 +5,7 @@
 
 Custom overlay-scrollbars with native scrolling mechanism for web applications (when needed).
 
-*There is a **React** wrapper too — [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar).*
+<em>There is a **React** wrapper too — [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar).</em>
 
 ###### Problem Description
 
