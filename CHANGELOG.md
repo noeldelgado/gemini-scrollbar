@@ -1,3 +1,9 @@
+## 1.3.0 (2015-11-19)
+
+Features:
+
+- [#16](../../issues/16) Allow user to force Gemini
+
 ## 1.2.9 (2015-08-17)
 
 Bugfixes:

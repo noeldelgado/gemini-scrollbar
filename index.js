@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.2.9
+ * @version 1.3.0
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -54,14 +54,14 @@
         this.element = null;
         this.autoshow = false;
         this.createElements = true;
+        this.forceGemini = false;
 
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
         }, this);
 
         SCROLLBAR_WIDTH = getScrollbarWidth();
-
-        DONT_CREATE_GEMINI = SCROLLBAR_WIDTH === 0 && !this.forceGemini;
+        DONT_CREATE_GEMINI = ((SCROLLBAR_WIDTH === 0) && (this.forceGemini === false));
 
         this._cache = {events: {}};
         this._created = false;
