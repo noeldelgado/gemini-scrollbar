@@ -5,7 +5,7 @@
  * @license MIT
  */
 (function() {
-    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
+    var SCROLLBAR_WIDTH, DONT_CREATE_GEMINI, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
 
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
@@ -61,6 +61,8 @@
 
         SCROLLBAR_WIDTH = getScrollbarWidth();
 
+        DONT_CREATE_GEMINI = SCROLLBAR_WIDTH === 0 && !this.forceGemini;
+
         this._cache = {events: {}};
         this._created = false;
         this._cursorDown = false;
@@ -77,7 +79,7 @@
     }
 
     GeminiScrollbar.prototype.create = function create() {
-        if (SCROLLBAR_WIDTH === 0) {
+        if (DONT_CREATE_GEMINI) {
             addClass(this.element, [CLASSNAMES.prevented]);
             return this;
         }
@@ -133,7 +135,7 @@
     };
 
     GeminiScrollbar.prototype.update = function update() {
-        if (SCROLLBAR_WIDTH === 0) {
+        if (DONT_CREATE_GEMINI) {
             return this;
         }
 
@@ -159,7 +161,7 @@
     };
 
     GeminiScrollbar.prototype.destroy = function destroy() {
-        if (SCROLLBAR_WIDTH === 0) {
+        if (DONT_CREATE_GEMINI) {
             return this;
         }
 

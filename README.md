@@ -79,6 +79,7 @@ name | type | default | description
 * **element** | HTMLElement | `null` | The element to apply scrollbars
 autoshow | Boolean | `false` | Show scrollbars upon hovering
 createElements | Boolean | `true` | Create and append the require HTMLElements at runtime.
+forceGemini | Boolean | `false` | Force Gemini scrollbars even if native overlay-scrollbars are available. Useful for development.
 
 \* `required`
 
