@@ -1,12 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * gemini-scrollbar
- * @version 1.2.6
+ * @version 1.3.0
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
 (function() {
-    var SCROLLBAR_WIDTH, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
+    var SCROLLBAR_WIDTH, DONT_CREATE_GEMINI, CLASSNAMES, addClass, removeClass, getScrollbarWidth;
 
     CLASSNAMES = {
         element: 'gm-scrollbar-container',
@@ -55,12 +55,14 @@
         this.element = null;
         this.autoshow = false;
         this.createElements = true;
+        this.forceGemini = false;
 
         Object.keys(config || {}).forEach(function (propertyName) {
             this[propertyName] = config[propertyName];
         }, this);
 
         SCROLLBAR_WIDTH = getScrollbarWidth();
+        DONT_CREATE_GEMINI = ((SCROLLBAR_WIDTH === 0) && (this.forceGemini === false));
 
         this._cache = {events: {}};
         this._created = false;
@@ -78,7 +80,7 @@
     }
 
     GeminiScrollbar.prototype.create = function create() {
-        if (SCROLLBAR_WIDTH === 0) {
+        if (DONT_CREATE_GEMINI) {
             addClass(this.element, [CLASSNAMES.prevented]);
             return this;
         }
@@ -104,6 +106,12 @@
             while(this.element.childNodes.length > 0) {
                 this._viewElement.appendChild(this.element.childNodes[0]);
             }
+
+            this._scrollbarVerticalElement.appendChild(this._thumbVerticalElement);
+            this._scrollbarHorizontalElement.appendChild(this._thumbHorizontalElement);
+            this.element.appendChild(this._scrollbarVerticalElement);
+            this.element.appendChild(this._scrollbarHorizontalElement);
+            this.element.appendChild(this._viewElement);
         } else {
             this._viewElement = this.element.querySelector('.' + CLASSNAMES.view);
             this._scrollbarVerticalElement = this.element.querySelector('.' + CLASSNAMES.verticalScrollbar.split(' ').join('.'));
@@ -113,18 +121,14 @@
         }
 
         addClass(this.element, [CLASSNAMES.element]);
-        removeClass(this.element, [CLASSNAMES.prevented]);
-        this._viewElement.className = CLASSNAMES.view;
-        this._scrollbarVerticalElement.className = CLASSNAMES.verticalScrollbar;
-        this._scrollbarHorizontalElement.className = CLASSNAMES.horizontalScrollbar;
-        this._thumbVerticalElement.className = CLASSNAMES.thumb;
-        this._thumbHorizontalElement.className = CLASSNAMES.thumb;
+        addClass(this._viewElement, [CLASSNAMES.view]);
+        addClass(this._scrollbarVerticalElement, CLASSNAMES.verticalScrollbar.split(/\s/));
+        addClass(this._scrollbarHorizontalElement, CLASSNAMES.horizontalScrollbar.split(/\s/));
+        addClass(this._thumbVerticalElement, [CLASSNAMES.thumb]);
+        addClass(this._thumbHorizontalElement, [CLASSNAMES.thumb]);
 
-        this._scrollbarVerticalElement.appendChild(this._thumbVerticalElement);
-        this._scrollbarHorizontalElement.appendChild(this._thumbHorizontalElement);
-        this.element.appendChild(this._scrollbarVerticalElement);
-        this.element.appendChild(this._scrollbarHorizontalElement);
-        this.element.appendChild(this._viewElement);
+        this._scrollbarVerticalElement.style.display = '';
+        this._scrollbarHorizontalElement.style.display = '';
 
         this._created = true;
 
@@ -132,7 +136,9 @@
     };
 
     GeminiScrollbar.prototype.update = function update() {
-        if (SCROLLBAR_WIDTH === 0) return this;
+        if (DONT_CREATE_GEMINI) {
+            return this;
+        }
 
         if (this._created === false) {
             console.warn('calling on a not-yet-created object');
@@ -156,7 +162,9 @@
     };
 
     GeminiScrollbar.prototype.destroy = function destroy() {
-        if (SCROLLBAR_WIDTH === 0) return this;
+        if (DONT_CREATE_GEMINI) {
+            return this;
+        }
 
         if (this._created === false) {
             console.warn('calling on a not-yet-created object');
@@ -165,25 +173,24 @@
 
         this._unbinEvents();
 
-        if (this.createElements === false) {
-            addClass(this.element, [CLASSNAMES.prevented]);
+        removeClass(this.element, [CLASSNAMES.element, CLASSNAMES.autoshow]);
+
+        if (this.createElements === true) {
+            this.element.removeChild(this._scrollbarVerticalElement);
+            this.element.removeChild(this._scrollbarHorizontalElement);
+            while(this._viewElement.childNodes.length > 0) {
+                this.element.appendChild(this._viewElement.childNodes[0]);
+            }
+            this.element.removeChild(this._viewElement);
+        } else {
             this._viewElement.style.width = '';
             this._viewElement.style.height = '';
-            this._created = false;
-            return null;
+            this._scrollbarVerticalElement.style.display = 'none';
+            this._scrollbarHorizontalElement.style.display = 'none';
         }
-
-        removeClass(this.element, [CLASSNAMES.element, CLASSNAMES.autoshow]);
-        this.element.removeChild(this._scrollbarVerticalElement);
-        this.element.removeChild(this._scrollbarHorizontalElement);
-        while(this._viewElement.childNodes.length > 0) {
-            this.element.appendChild(this._viewElement.childNodes[0]);
-        }
-        this.element.removeChild(this._viewElement);
 
         this._created = false;
-        this._document = null;
-        this._window = null;
+        this._document = this._window = null;
 
         return null;
     };
@@ -278,8 +285,7 @@
 
     GeminiScrollbar.prototype._mouseUpDocumentHandler = function() {
         this._cursorDown = false;
-        this._prevPageX = 0;
-        this._prevPageY = 0;
+        this._prevPageX = this._prevPageY = 0;
         removeClass(document.body, [CLASSNAMES.disable]);
         this._document.removeEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
         this._document.onselectstart = null;
@@ -287,7 +293,7 @@
 
     GeminiScrollbar.prototype._mouseMoveDocumentHandler = function(e) {
         if (this._cursorDown === false) {
-            return;
+            return void 0;
         }
 
         var offset, thumbClickPosition, thumbPositionPercentage;
@@ -296,57 +302,55 @@
             offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
             thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarVerticalElement.offsetHeight);
-
             this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
-
-            return;
+            return void 0;
         }
 
         if (this._prevPageX) {
             offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
             thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
             thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarHorizontalElement.offsetWidth);
-
             this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
         }
     };
 
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    if (typeof exports === 'object') {
         module.exports = GeminiScrollbar;
-    } else window.GeminiScrollbar = GeminiScrollbar;
+    } else {
+        window.GeminiScrollbar = GeminiScrollbar;
+    }
 })();
 
 },{}],2:[function(require,module,exports){
-
 var GeminiScrolllbar = require('gemini-scrollbar');
 
-var ex0 = new GeminiScrolllbar({
-    element : document.body,
-    createElements : false
+new GeminiScrolllbar({
+  element: document.body,
+  createElements: false
 }).create();
 
-var ex1 = new GeminiScrolllbar({
-    element: document.querySelector('.ex1 .list-container')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex1 .list-container')
 }).create();
 
-var ex2 = new GeminiScrolllbar({
-    element: document.querySelector('.ex2 .code')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex2 .code')
 }).create();
 
-var ex3 = new GeminiScrolllbar({
-    element: document.querySelector('.ex3 .box')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex3 .box')
 }).create();
 
-var ex4 = new GeminiScrolllbar({
-    element: document.querySelector('.ex4 .manilla')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex4 .manilla')
 }).create();
 
-var ex5 = new GeminiScrolllbar({
-    element: document.querySelector('.ex5 .sample')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex5 .sample')
 }).create();
 
-var ex6 = new GeminiScrolllbar({
-    element: document.querySelector('.ex6 .sample')
+new GeminiScrolllbar({
+  element: document.querySelector('.ex6 .sample')
 }).create();
 
 },{"gemini-scrollbar":1}]},{},[2]);
