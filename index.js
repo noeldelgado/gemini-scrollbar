@@ -19,15 +19,18 @@
     scrollbarWidthTest: 'gm-test'
   };
 
-  function getScrollbarWidth() {
+  GeminiScrollbar.prototype._afterMeasurementDoneActions = [];
+
+  function acquireScrollbarWidth(callback) {
     var scrollDiv = document.createElement("div");
     scrollDiv.className = CLASSNAMES.scrollbarWidthTest;
     document.body.appendChild(scrollDiv);
 
-    var scrollbarWidth = (scrollDiv.offsetWidth - scrollDiv.clientWidth);
-    document.body.removeChild(scrollDiv);
-
-    return scrollbarWidth;
+    setTimeout(function() {
+      SCROLLBAR_WIDTH = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+      if(typeof callback === 'function') callback();
+    });
   }
 
   function addClass(el, classNames) {
@@ -58,8 +61,12 @@
       this[propertyName] = config[propertyName];
     }, this);
 
-    SCROLLBAR_WIDTH = getScrollbarWidth();
-    DONT_CREATE_GEMINI = ((SCROLLBAR_WIDTH === 0) && (this.forceGemini === false));
+    var self = this;
+    acquireScrollbarWidth(function() {
+      DONT_CREATE_GEMINI = ((SCROLLBAR_WIDTH === 0) && (self.forceGemini === false));
+
+      self._performAfterMeasurementDoneActions();
+    });
 
     this._cache = {events: {}};
     this._created = false;
@@ -77,6 +84,11 @@
   }
 
   GeminiScrollbar.prototype.create = function create() {
+    if(typeof SCROLLBAR_WIDTH === 'undefined') {
+      this._afterMeasurementDoneActions.push(create);
+      return this;
+    }
+
     if (DONT_CREATE_GEMINI) {
       addClass(this.element, [CLASSNAMES.prevented]);
       return this;
@@ -133,6 +145,11 @@
   };
 
   GeminiScrollbar.prototype.update = function update() {
+    if(typeof SCROLLBAR_WIDTH === 'undefined') {
+      this._afterMeasurementDoneActions.push(update);
+      return this;
+    }
+
     if (DONT_CREATE_GEMINI) {
       return this;
     }
@@ -159,6 +176,11 @@
   };
 
   GeminiScrollbar.prototype.destroy = function destroy() {
+    if(typeof SCROLLBAR_WIDTH === 'undefined') {
+      this._afterMeasurementDoneActions.push(destroy);
+      return this;
+    }
+
     if (DONT_CREATE_GEMINI) {
       return this;
     }
@@ -195,6 +217,10 @@
   GeminiScrollbar.prototype.getViewElement = function getViewElement() {
     return this._viewElement;
   };
+
+  GeminiScrollbar.prototype._performAfterMeasurementDoneActions = function() {
+    while(this._afterMeasurementDoneActions.length > 0) this._afterMeasurementDoneActions.shift().call(this);
+  }
 
   GeminiScrollbar.prototype._bindEvents = function _bindEvents() {
     this._cache.events.scrollHandler = this._scrollHandler.bind(this);
