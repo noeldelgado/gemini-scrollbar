@@ -1,3 +1,10 @@
+## 1.3.1 (2016-01-11)
+
+Bugfixes:
+
+- added inline styles to the test element
+- removed `.gm-test` css rule from the stylesheet
+
 ## 1.3.0 (2015-11-19)
 
 Features:

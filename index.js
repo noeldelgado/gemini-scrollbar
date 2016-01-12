@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.3.0
+ * @version 1.3.1
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -15,19 +15,19 @@
     view: 'gm-scroll-view',
     autoshow: 'gm-autoshow',
     disable: 'gm-scrollbar-disable-selection',
-    prevented: 'gm-prevented',
-    scrollbarWidthTest: 'gm-test'
+    prevented: 'gm-prevented'
   };
 
   function getScrollbarWidth() {
-    var scrollDiv = document.createElement("div");
-    scrollDiv.className = CLASSNAMES.scrollbarWidthTest;
-    document.body.appendChild(scrollDiv);
-
-    var scrollbarWidth = (scrollDiv.offsetWidth - scrollDiv.clientWidth);
-    document.body.removeChild(scrollDiv);
-
-    return scrollbarWidth;
+    var e = document.createElement('div');
+    e.style.position = 'absolute';
+    e.style.top = '-9999px';
+    e.style.width = '100px';
+    e.style.height = '100px';
+    e.style.overflow = 'scroll';
+    e.style.msOverflowStyle = 'scrollbar';
+    document.body.appendChild(e);
+    return (e.offsetWidth - e.clientWidth);
   }
 
   function addClass(el, classNames) {
