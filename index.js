@@ -145,7 +145,7 @@
     var heightPercentage, widthPercentage;
 
     this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
-    this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
+    this._viewElement.style.height = ((this.element.offsetHeight).toString() + 'px');
 
     heightPercentage = (this._viewElement.clientHeight * 100 / this._viewElement.scrollHeight);
     widthPercentage = (this._viewElement.clientWidth * 100 / this._viewElement.scrollWidth);
