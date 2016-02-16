@@ -19,15 +19,16 @@
   };
 
   function getScrollbarWidth() {
-    var e = document.createElement('div');
+    var e = document.createElement('div'), rect;
     e.style.position = 'absolute';
     e.style.top = '-9999px';
     e.style.width = '100px';
-    e.style.height = '100px';
     e.style.overflow = 'scroll';
     e.style.msOverflowStyle = 'scrollbar';
     document.body.appendChild(e);
-    return (e.offsetWidth - e.clientWidth);
+    rect = e.getBoundingClientRect();
+    document.body.removeChild(e);
+    return (rect.bottom - rect.top);
   }
 
   function addClass(el, classNames) {
@@ -142,10 +143,13 @@
       return this;
     }
 
-    var heightPercentage, widthPercentage;
+    var heightPercentage, widthPercentage, rect, width, height;
 
-    this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
-    this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
+    rect = this.element.getBoundingClientRect();
+    width = Math.ceil(rect.right) - Math.floor(rect.left);
+    height = Math.ceil(rect.bottom) - Math.floor(rect.top);
+    this._viewElement.style.width = ((width + SCROLLBAR_WIDTH).toString() + 'px');
+    this._viewElement.style.height = ((height + SCROLLBAR_WIDTH).toString() + 'px');
 
     heightPercentage = (this._viewElement.clientHeight * 100 / this._viewElement.scrollHeight);
     widthPercentage = (this._viewElement.clientWidth * 100 / this._viewElement.scrollWidth);
