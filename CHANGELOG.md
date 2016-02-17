@@ -1,3 +1,10 @@
+## 1.3.2 (2016-02-17)
+
+Bugfixes:
+
+- [3b5674c](../../commit/3b5674ca244ee5d25489ed08dcab4984204796bd) Remove scrollbar width test element.
+- Clear viewElement{width,height} before reading them back on the update method.
+
 ## 1.3.1 (2016-01-11)
 
 Bugfixes:
