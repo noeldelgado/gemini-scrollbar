@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.3.1
+ * @version 1.3.2
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -19,7 +19,7 @@
   };
 
   function getScrollbarWidth() {
-    var e = document.createElement('div');
+    var e = document.createElement('div'), sw;
     e.style.position = 'absolute';
     e.style.top = '-9999px';
     e.style.width = '100px';
@@ -27,7 +27,9 @@
     e.style.overflow = 'scroll';
     e.style.msOverflowStyle = 'scrollbar';
     document.body.appendChild(e);
-    return (e.offsetWidth - e.clientWidth);
+    sw = (e.offsetWidth - e.clientWidth);
+    document.body.removeChild(e);
+    return sw;
   }
 
   function addClass(el, classNames) {
@@ -143,6 +145,8 @@
     }
 
     var heightPercentage, widthPercentage;
+    this._viewElement.style.width = '';
+    this._viewElement.style.height = '';
 
     this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
     this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
