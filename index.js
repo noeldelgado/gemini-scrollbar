@@ -72,7 +72,6 @@
     this._prevPageY = 0;
 
     this._document = null;
-    this._window = null;
     this._viewElement = this.element;
     this._scrollbarVerticalElement = null;
     this._thumbVerticalElement = null;
@@ -83,10 +82,24 @@
   GeminiScrollbar.prototype.create = function create() {
     if (DONT_CREATE_GEMINI) {
       addClass(this.element, [CLASSNAMES.prevented]);
+
       if (this.onResize) {
-        // still need a resize trigger if we have an onResize callback
+        // still need a resize trigger if we have an onResize callback, which
+        // also means we need a separate _viewElement to do the scrolling.
+        if (this.createElements === true) {
+          this._viewElement = document.createElement('div');
+          while(this.element.childNodes.length > 0) {
+            this._viewElement.appendChild(this.element.childNodes[0]);
+          }
+          this.element.appendChild(this._viewElement);
+        } else {
+          this._viewElement = this.element.querySelector('.' + CLASSNAMES.view);
+        }
+        addClass(this.element, [CLASSNAMES.element]);
+        addClass(this._viewElement, [CLASSNAMES.view]);
         this._createResizeTrigger();
       }
+
       return this;
     }
 
@@ -100,7 +113,6 @@
     }
 
     this._document = document;
-    this._window = window;
 
     if (this.createElements === true) {
       this._viewElement = document.createElement('div');
@@ -232,7 +244,7 @@
     }
 
     this._created = false;
-    this._document = this._window = null;
+    this._document = null;
 
     return null;
   };
