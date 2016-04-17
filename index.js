@@ -15,7 +15,8 @@
     view: 'gm-scroll-view',
     autoshow: 'gm-autoshow',
     disable: 'gm-scrollbar-disable-selection',
-    prevented: 'gm-prevented'
+    prevented: 'gm-prevented',
+    resizeTrigger: 'gm-resize-trigger',
   };
 
   function getScrollbarWidth() {
@@ -55,6 +56,7 @@
     this.autoshow = false;
     this.createElements = true;
     this.forceGemini = false;
+    this.onResize = null;
 
     Object.keys(config || {}).forEach(function (propertyName) {
       this[propertyName] = config[propertyName];
@@ -70,7 +72,6 @@
     this._prevPageY = 0;
 
     this._document = null;
-    this._window = null;
     this._viewElement = this.element;
     this._scrollbarVerticalElement = null;
     this._thumbVerticalElement = null;
@@ -81,6 +82,24 @@
   GeminiScrollbar.prototype.create = function create() {
     if (DONT_CREATE_GEMINI) {
       addClass(this.element, [CLASSNAMES.prevented]);
+
+      if (this.onResize) {
+        // still need a resize trigger if we have an onResize callback, which
+        // also means we need a separate _viewElement to do the scrolling.
+        if (this.createElements === true) {
+          this._viewElement = document.createElement('div');
+          while(this.element.childNodes.length > 0) {
+            this._viewElement.appendChild(this.element.childNodes[0]);
+          }
+          this.element.appendChild(this._viewElement);
+        } else {
+          this._viewElement = this.element.querySelector('.' + CLASSNAMES.view);
+        }
+        addClass(this.element, [CLASSNAMES.element]);
+        addClass(this._viewElement, [CLASSNAMES.view]);
+        this._createResizeTrigger();
+      }
+
       return this;
     }
 
@@ -94,7 +113,6 @@
     }
 
     this._document = document;
-    this._window = window;
 
     if (this.createElements === true) {
       this._viewElement = document.createElement('div');
@@ -129,9 +147,39 @@
     this._scrollbarVerticalElement.style.display = '';
     this._scrollbarHorizontalElement.style.display = '';
 
+    this._createResizeTrigger();
+
     this._created = true;
 
     return this._bindEvents().update();
+  };
+
+  GeminiScrollbar.prototype._createResizeTrigger = function createResizeTrigger() {
+    // We need to arrange for self.scrollbar.update to be called whenever
+    // the DOM is changed resulting in a size-change for our div. To make
+    // this happen, we use a technique described here:
+    // http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection/.
+    //
+    // The idea is that we create an <object> element in our div, which we
+    // arrange to have the same size as that div. The <object> element
+    // contains a Window object, to which we can attach an onresize
+    // handler.
+    //
+    // (React appears to get very confused by the object (we end up with
+    // Chrome windows which only show half of the text they are supposed
+    // to), so we always do this manually.)
+
+    var obj = document.createElement('object');
+    addClass(obj, [CLASSNAMES.resizeTrigger]);
+    var resizeHandler = this._resizeHandler.bind(this);
+    obj.onload = function () {
+      var win = obj.contentDocument.defaultView;
+      win.addEventListener('resize', resizeHandler);
+    };
+    obj.type = 'text/html';
+    obj.data = 'about:blank';
+    this.element.appendChild(obj);
+    this._resizeTriggerElement = obj;
   };
 
   GeminiScrollbar.prototype.update = function update() {
@@ -163,6 +211,11 @@
   };
 
   GeminiScrollbar.prototype.destroy = function destroy() {
+    if (this._resizeTriggerElement) {
+      this.element.removeChild(this._resizeTriggerElement);
+      this._resizeTriggerElement = null;
+    }
+
     if (DONT_CREATE_GEMINI) {
       return this;
     }
@@ -191,7 +244,7 @@
     }
 
     this._created = false;
-    this._document = this._window = null;
+    this._document = null;
 
     return null;
   };
@@ -208,7 +261,6 @@
     this._cache.events.clickHorizontalThumbHandler = this._clickHorizontalThumbHandler.bind(this);
     this._cache.events.mouseUpDocumentHandler = this._mouseUpDocumentHandler.bind(this);
     this._cache.events.mouseMoveDocumentHandler = this._mouseMoveDocumentHandler.bind(this);
-    this._cache.events.resizeWindowHandler = this.update.bind(this);
 
     this._viewElement.addEventListener('scroll', this._cache.events.scrollHandler);
     this._scrollbarVerticalElement.addEventListener('mousedown', this._cache.events.clickVerticalTrackHandler);
@@ -216,7 +268,6 @@
     this._thumbVerticalElement.addEventListener('mousedown', this._cache.events.clickVerticalThumbHandler);
     this._thumbHorizontalElement.addEventListener('mousedown', this._cache.events.clickHorizontalThumbHandler);
     this._document.addEventListener('mouseup', this._cache.events.mouseUpDocumentHandler);
-    this._window.addEventListener('resize', this._cache.events.resizeWindowHandler);
 
     return this;
   };
@@ -229,7 +280,6 @@
     this._thumbHorizontalElement.removeEventListener('mousedown', this._cache.events.clickHorizontalThumbHandler);
     this._document.removeEventListener('mouseup', this._cache.events.mouseUpDocumentHandler);
     this._document.removeEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
-    this._window.removeEventListener('resize', this._cache.events.resizeWindowHandler);
 
     return this;
   };
@@ -248,6 +298,13 @@
     this._thumbHorizontalElement.style.msTransform = 'translateX(' + x + '%)';
     this._thumbHorizontalElement.style.webkitTransform = 'translateX(' + x + '%)';
     this._thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
+  };
+
+  GeminiScrollbar.prototype._resizeHandler = function _resizeHandler() {
+    this.update();
+    if (this.onResize) {
+      this.onResize();
+    }
   };
 
   GeminiScrollbar.prototype._clickVerticalTrackHandler = function _clickVerticalTrackHandler(e) {
