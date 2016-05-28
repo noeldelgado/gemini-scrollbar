@@ -89,3 +89,15 @@
   opacity: 1;
   transition: opacity 340ms ease-out;
 }
+
+.gm-resize-trigger {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
