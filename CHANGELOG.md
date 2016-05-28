@@ -1,3 +1,10 @@
+## 1.4.0 (2016-05-28)
+
+Features:
+
+- [#26](../../pull/26) Add a handler to detect resizes of the scrolling element.
+- Added `onResize` option hook by which clients can be notified of resize events
+
 ## 1.3.2 (2016-02-17)
 
 Bugfixes:

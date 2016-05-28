@@ -80,6 +80,7 @@ name | type | default | description
 autoshow | Boolean | `false` | Show scrollbars upon hovering
 createElements | Boolean | `true` | Create and append the require HTMLElements at runtime.
 forceGemini | Boolean | `false` | Force Gemini scrollbars even if native overlay-scrollbars are available. Useful for development.
+onResize | Function | `null` | Hook by which clients can be notified of resize events.
 
 \* `required`
 
