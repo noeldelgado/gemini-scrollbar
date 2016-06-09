@@ -202,11 +202,17 @@
   <script>
     window.onload = function() {
       var sidebar = new GeminiScrollbar({
-        element: document.querySelector('.sidebar-scrollbar')
+        element: document.querySelector('.sidebar-scrollbar'),
+        onResize: function() {
+          console.log('sidebar resized');
+        }
       }).create();
 
       var main = new GeminiScrollbar({
-        element: document.querySelector('.main-scrollbar')
+        element: document.querySelector('.main-scrollbar'),
+        onResize: function() {
+          console.log('main resized');
+        }
       }).create();
     };
   </script>

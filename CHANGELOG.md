@@ -1,3 +1,10 @@
+## 1.4.1 (2016-06-8)
+
+Bugfixes:
+
+- [#29](../../issues/29) .gm-resize-trigger causes white block overlaying scrollable content
+- [#23](../../pull/23) fix autoshow functionality whilst dragging thumb of a scrollbar
+
 ## 1.4.0 (2016-05-28)
 
 Features:
