@@ -16,7 +16,7 @@
   "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
   "license": "MIT",
   "dependencies": {
-    "gemini-scrollbar": "^1.3.0",
+    "gemini-scrollbar": "^1.4.1",
     "sanitize.css": "^1.1.0"
   }
 }
