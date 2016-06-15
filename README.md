@@ -1,8 +1,8 @@
 # gemini-scrollbar
 
-[![npm-image](https://img.shields.io/npm/v/gemini-scrollbar.svg?style=flat-square)](https://www.npmjs.com/package/gemini-scrollbar)
-![bower-image](https://img.shields.io/bower/v/gemini-scrollbar.svg?style=flat-square)
-![license-image](https://img.shields.io/npm/l/gemini-scrollbar.svg?style=flat-square)
+[![npm-image](https://img.shields.io/npm/v/gemini-scrollbar.svg)](https://www.npmjs.com/package/gemini-scrollbar)
+![bower-image](https://img.shields.io/bower/v/gemini-scrollbar.svg)
+![license-image](https://img.shields.io/npm/l/gemini-scrollbar.svg)
 
 Custom overlay-scrollbars with native scrolling mechanism for web applications (when needed).
 
