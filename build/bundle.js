@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * gemini-scrollbar
- * @version 1.4.1
+ * @version 1.4.2
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -50,6 +50,14 @@
       });
     }
     el.className = el.className.replace(new RegExp('(^|\\b)' + classNames.join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+
+  /* Copyright (c) 2015 Lucas Wiener
+   * https://github.com/wnr/element-resize-detector
+   */
+  function isIE() {
+    var agent = navigator.userAgent.toLowerCase();
+    return agent.indexOf("msie") !== -1 || agent.indexOf("trident") !== -1 || agent.indexOf(" edge/") !== -1;
   }
 
   function GeminiScrollbar(config) {
@@ -172,14 +180,25 @@
 
     var obj = document.createElement('object');
     addClass(obj, [CLASSNAMES.resizeTrigger]);
+    obj.type = 'text/html';
     var resizeHandler = this._resizeHandler.bind(this);
     obj.onload = function () {
       var win = obj.contentDocument.defaultView;
       win.addEventListener('resize', resizeHandler);
     };
-    obj.type = 'text/html';
-    obj.data = 'about:blank';
+
+    //IE: Does not like that this happens before, even if it is also added after.
+    if (!isIE()) {
+      obj.data = 'about:blank';
+    }
+
     this.element.appendChild(obj);
+
+    //IE: This must occur after adding the object to the DOM.
+    if (isIE()) {
+      obj.data = 'about:blank';
+    }
+
     this._resizeTriggerElement = obj;
   };
 
