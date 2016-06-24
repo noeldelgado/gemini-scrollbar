@@ -1,3 +1,11 @@
+## 1.4.2 (2016-06-23)
+
+Bugfixes:
+
+- [comment](../../commit/58c7abced43ae9d0d33654cbe02ef597979f9c67#commitcomment-17987597)
+  - Removed `visibility: hidden` from `.gm-resize-trigger` so it works on Firefox.
+  - Updated the order in how we add the `type` for the resizer object so it works on IE correctly.
+
 ## 1.4.1 (2016-06-8)
 
 Bugfixes:

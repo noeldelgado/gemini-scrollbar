@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.4.1
+ * @version 1.4.2
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -49,6 +49,14 @@
       });
     }
     el.className = el.className.replace(new RegExp('(^|\\b)' + classNames.join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+
+  /* Copyright (c) 2015 Lucas Wiener
+   * https://github.com/wnr/element-resize-detector
+   */
+  function isIE() {
+    var agent = navigator.userAgent.toLowerCase();
+    return agent.indexOf("msie") !== -1 || agent.indexOf("trident") !== -1 || agent.indexOf(" edge/") !== -1;
   }
 
   function GeminiScrollbar(config) {
@@ -171,14 +179,25 @@
 
     var obj = document.createElement('object');
     addClass(obj, [CLASSNAMES.resizeTrigger]);
+    obj.type = 'text/html';
     var resizeHandler = this._resizeHandler.bind(this);
     obj.onload = function () {
       var win = obj.contentDocument.defaultView;
       win.addEventListener('resize', resizeHandler);
     };
-    obj.type = 'text/html';
-    obj.data = 'about:blank';
+
+    //IE: Does not like that this happens before, even if it is also added after.
+    if (!isIE()) {
+      obj.data = 'about:blank';
+    }
+
     this.element.appendChild(obj);
+
+    //IE: This must occur after adding the object to the DOM.
+    if (isIE()) {
+      obj.data = 'about:blank';
+    }
+
     this._resizeTriggerElement = obj;
   };
 

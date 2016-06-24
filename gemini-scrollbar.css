@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.4.1
+ * @version 1.4.2
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -101,5 +101,5 @@
   overflow: hidden;
   pointer-events: none;
   z-index: -1;
-  visibility: hidden;
+  opacity: 0;
 }
