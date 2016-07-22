@@ -1,3 +1,25 @@
+## 1.4.2 (2016-06-23)
+
+Bugfixes:
+
+- [comment](../../commit/58c7abced43ae9d0d33654cbe02ef597979f9c67#commitcomment-17987597)
+  - Removed `visibility: hidden` from `.gm-resize-trigger` so it works on Firefox.
+  - Updated the order in how we add the `type` for the resizer object so it works on IE correctly.
+
+## 1.4.1 (2016-06-8)
+
+Bugfixes:
+
+- [#29](../../issues/29) .gm-resize-trigger causes white block overlaying scrollable content
+- [#23](../../pull/23) fix autoshow functionality whilst dragging thumb of a scrollbar
+
+## 1.4.0 (2016-05-28)
+
+Features:
+
+- [#26](../../pull/26) Add a handler to detect resizes of the scrolling element.
+- Added `onResize` option hook by which clients can be notified of resize events
+
 ## 1.3.2 (2016-02-17)
 
 Bugfixes:
