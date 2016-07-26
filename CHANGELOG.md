@@ -2,7 +2,7 @@
 
 Patch:
 
-- [#31] removed reset of `viewElement.style.{width,height}`, turn off relayouts on update.
+- [#31](../../pull/31) removed reset of `viewElement.style.{width,height}`, turn off relayouts on update.
 
 ## 1.4.2 (2016-06-23)
 
