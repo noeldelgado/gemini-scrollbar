@@ -1,6 +1,6 @@
 /**
  * gemini-scrollbar
- * @version 1.4.2
+ * @version 1.4.3
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */

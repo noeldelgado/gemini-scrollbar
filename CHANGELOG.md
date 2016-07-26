@@ -1,3 +1,9 @@
+## 1.4.3 (2016-07-26)
+
+Patch:
+
+- [#31] removed reset of `viewElement.style.{width,height}`, turn off relayouts on update.
+
 ## 1.4.2 (2016-06-23)
 
 Bugfixes:
