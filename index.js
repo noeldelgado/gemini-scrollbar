@@ -212,8 +212,6 @@
     }
 
     var heightPercentage, widthPercentage;
-    this._viewElement.style.width = '';
-    this._viewElement.style.height = '';
 
     this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
     this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
