@@ -241,7 +241,10 @@
     }).create()
 
     var ex7 = new GeminiScrollbar({
-        element: document.querySelector('#example-7')
+        element: document.querySelector('#example-7'),
+        onResize: function() {
+          console.log(this.getViewElement());
+        }
     }).create()
   }
 </script>
