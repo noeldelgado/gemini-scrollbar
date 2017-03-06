@@ -1,3 +1,9 @@
+## 1.5.0 (2017-03-05)
+
+Feature:
+
+- [#41](../../issues/41) add `minThumbSize` option, defaults to `20` (px)
+
 ## 1.4.3 (2016-07-26)
 
 Patch:

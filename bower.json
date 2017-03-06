@@ -1,7 +1,7 @@
 {
   "name": "gemini-scrollbar",
   "main": "index.js",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "homepage": "https://github.com/noeldelgado/gemini-scrollbar",
   "authors": [
     "Noel Delgado <auhcsei@gmail.com>"
