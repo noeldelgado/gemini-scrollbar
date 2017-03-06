@@ -57,6 +57,7 @@
   cursor: pointer;
   border-radius: inherit;
   background-color: rgba(0,0,0,.2);
+  transform: translate3d(0,0,0);
 }
 
 .gm-scrollbar .thumb:hover,
