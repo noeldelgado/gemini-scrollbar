@@ -65,6 +65,7 @@
     this.createElements = true;
     this.forceGemini = false;
     this.onResize = null;
+    this.minThumbSize = 20;
 
     Object.keys(config || {}).forEach(function (propertyName) {
       this[propertyName] = config[propertyName];
@@ -211,16 +212,32 @@
       return this;
     }
 
-    var heightPercentage, widthPercentage;
-
     this._viewElement.style.width = ((this.element.offsetWidth + SCROLLBAR_WIDTH).toString() + 'px');
     this._viewElement.style.height = ((this.element.offsetHeight + SCROLLBAR_WIDTH).toString() + 'px');
 
-    heightPercentage = (this._viewElement.clientHeight * 100 / this._viewElement.scrollHeight);
-    widthPercentage = (this._viewElement.clientWidth * 100 / this._viewElement.scrollWidth);
+    this._naturalThumbSizeX = this._scrollbarHorizontalElement.clientWidth / this._viewElement.scrollWidth * this._scrollbarHorizontalElement.clientWidth;
+    this._naturalThumbSizeY = this._scrollbarVerticalElement.clientHeight / this._viewElement.scrollHeight * this._scrollbarVerticalElement.clientHeight;
 
-    this._thumbVerticalElement.style.height = (heightPercentage < 100) ? (heightPercentage + '%') : '';
-    this._thumbHorizontalElement.style.width = (widthPercentage < 100) ? (widthPercentage + '%') : '';
+    this._scrollTopMax = this._viewElement.scrollHeight - this._viewElement.clientHeight;
+    this._scrollLeftMax = this._viewElement.scrollWidth - this._viewElement.clientWidth;
+
+    if (this._naturalThumbSizeY < this.minThumbSize) {
+      this._thumbVerticalElement.style.height = this.minThumbSize + 'px';
+    } else if (this._scrollTopMax) {
+      this._thumbVerticalElement.style.height = this._naturalThumbSizeY + 'px';
+    }
+
+    if (this._naturalThumbSizeX < this.minThumbSize) {
+      this._thumbHorizontalElement.style.width = this.minThumbSize + 'px';
+    } else if (this._scrollLeftMax) {
+      this._thumbHorizontalElement.style.width = this._naturalThumbSizeX + 'px';
+    }
+
+    this._thumbSizeY = this._thumbVerticalElement.clientHeight;
+    this._thumbSizeX = this._thumbHorizontalElement.clientWidth;
+
+    this._trackTopMax = this._scrollbarVerticalElement.clientHeight - this._thumbSizeY;
+    this._trackLeftMax = this._scrollbarHorizontalElement.clientWidth - this._thumbSizeX;
 
     this._scrollHandler();
 
@@ -302,19 +319,16 @@
   };
 
   GeminiScrollbar.prototype._scrollHandler = function _scrollHandler() {
-    var viewElement, x, y;
+    var x = (this._viewElement.scrollLeft * this._trackLeftMax / this._scrollLeftMax) || 0;
+    var y = (this._viewElement.scrollTop * this._trackTopMax / this._scrollTopMax) || 0;
 
-    viewElement = this._viewElement;
-    y = ((viewElement.scrollTop * 100) / viewElement.clientHeight);
-    x = ((viewElement.scrollLeft * 100) / viewElement.clientWidth);
+    this._thumbHorizontalElement.style.msTransform = 'translateX(' + x + 'px)';
+    this._thumbHorizontalElement.style.webkitTransform = 'translate3d(' + x + 'px, 0, 0)';
+    this._thumbHorizontalElement.style.transform = 'translate3d(' + x + 'px, 0, 0)';
 
-    this._thumbVerticalElement.style.msTransform = 'translateY(' + y + '%)';
-    this._thumbVerticalElement.style.webkitTransform = 'translateY(' + y + '%)';
-    this._thumbVerticalElement.style.transform = 'translateY(' + y + '%)';
-
-    this._thumbHorizontalElement.style.msTransform = 'translateX(' + x + '%)';
-    this._thumbHorizontalElement.style.webkitTransform = 'translateX(' + x + '%)';
-    this._thumbHorizontalElement.style.transform = 'translateX(' + x + '%)';
+    this._thumbVerticalElement.style.msTransform = 'translateY(' + y + 'px)';
+    this._thumbVerticalElement.style.webkitTransform = 'translate3d(0, ' + y + 'px, 0)';
+    this._thumbVerticalElement.style.transform = 'translate3d(0, ' + y + 'px, 0)';
   };
 
   GeminiScrollbar.prototype._resizeHandler = function _resizeHandler() {
@@ -325,27 +339,27 @@
   };
 
   GeminiScrollbar.prototype._clickVerticalTrackHandler = function _clickVerticalTrackHandler(e) {
-    var offset = Math.abs(e.target.getBoundingClientRect().top - e.clientY)
-      , thumbHalf = (this._thumbVerticalElement.offsetHeight / 2)
-      , thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._scrollbarVerticalElement.offsetHeight);
-    this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
+    var offset = e.offsetY - this._naturalThumbSizeY * .5
+      , thumbPositionPercentage = offset * 100 / this._scrollbarVerticalElement.clientHeight;
+
+    this._viewElement.scrollTop = thumbPositionPercentage * this._viewElement.scrollHeight / 100;
   };
 
   GeminiScrollbar.prototype._clickHorizontalTrackHandler = function _clickHorizontalTrackHandler(e) {
-    var offset = Math.abs(e.target.getBoundingClientRect().left - e.clientX)
-      , thumbHalf = (this._thumbHorizontalElement.offsetWidth / 2)
-      , thumbPositionPercentage = ((offset - thumbHalf) * 100 / this._scrollbarHorizontalElement.offsetWidth);
-    this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
+    var offset = e.offsetX - this._naturalThumbSizeX * .5
+      , thumbPositionPercentage = offset * 100 / this._scrollbarHorizontalElement.clientWidth;
+
+    this._viewElement.scrollLeft = thumbPositionPercentage * this._viewElement.scrollWidth / 100;
   };
 
   GeminiScrollbar.prototype._clickVerticalThumbHandler = function _clickVerticalThumbHandler(e) {
     this._startDrag(e);
-    this._prevPageY = (e.currentTarget.offsetHeight - (e.clientY - e.currentTarget.getBoundingClientRect().top));
+    this._prevPageY = this._thumbSizeY - e.offsetY;
   };
 
   GeminiScrollbar.prototype._clickHorizontalThumbHandler = function _clickHorizontalThumbHandler(e) {
     this._startDrag(e);
-    this._prevPageX = (e.currentTarget.offsetWidth - (e.clientX - e.currentTarget.getBoundingClientRect().left));
+    this._prevPageX = this._thumbSizeX - e.offsetX;
   };
 
   GeminiScrollbar.prototype._startDrag = function _startDrag(e) {
@@ -367,21 +381,22 @@
   GeminiScrollbar.prototype._mouseMoveDocumentHandler = function _mouseMoveDocumentHandler(e) {
     if (this._cursorDown === false) {return;}
 
-    var offset, thumbClickPosition, thumbPositionPercentage;
+    var offset, thumbClickPosition;
 
     if (this._prevPageY) {
-      offset = ((this._scrollbarVerticalElement.getBoundingClientRect().top - e.clientY) * -1);
-      thumbClickPosition = (this._thumbVerticalElement.offsetHeight - this._prevPageY);
-      thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarVerticalElement.offsetHeight);
-      this._viewElement.scrollTop = (thumbPositionPercentage * this._viewElement.scrollHeight / 100);
+      offset = e.clientY - this._scrollbarVerticalElement.getBoundingClientRect().top;
+      thumbClickPosition = this._thumbSizeY - this._prevPageY;
+
+      this._viewElement.scrollTop = this._scrollTopMax * (offset - thumbClickPosition) / this._trackTopMax;
+
       return void 0;
     }
 
     if (this._prevPageX) {
-      offset = ((this._scrollbarHorizontalElement.getBoundingClientRect().left - e.clientX) * -1);
-      thumbClickPosition = (this._thumbHorizontalElement.offsetWidth - this._prevPageX);
-      thumbPositionPercentage = ((offset - thumbClickPosition) * 100 / this._scrollbarHorizontalElement.offsetWidth);
-      this._viewElement.scrollLeft = (thumbPositionPercentage * this._viewElement.scrollWidth / 100);
+      offset = e.clientX - this._scrollbarHorizontalElement.getBoundingClientRect().left;
+      thumbClickPosition = this._thumbSizeX - this._prevPageX;
+
+      this._viewElement.scrollLeft = this._scrollLeftMax * (offset - thumbClickPosition) / this._trackLeftMax;
     }
   };
 
