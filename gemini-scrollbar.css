@@ -19,7 +19,7 @@
 .gm-prevented {
   -webkit-overflow-scrolling: touch;
 }
-.gm-prevented .gm-scrollbar {
+.gm-prevented > .gm-scrollbar {
   display: none;
 }
 
@@ -86,9 +86,9 @@
   opacity: 0;
   transition: opacity 120ms ease-out;
 }
-.gm-scrollbar-container.gm-autoshow:hover .gm-scrollbar,
-.gm-scrollbar-container.gm-autoshow:active .gm-scrollbar,
-.gm-scrollbar-container.gm-autoshow:focus .gm-scrollbar {
+.gm-scrollbar-container.gm-autoshow:hover > .gm-scrollbar,
+.gm-scrollbar-container.gm-autoshow:active > .gm-scrollbar,
+.gm-scrollbar-container.gm-autoshow:focus > .gm-scrollbar {
   opacity: 1;
   transition: opacity 340ms ease-out;
 }
