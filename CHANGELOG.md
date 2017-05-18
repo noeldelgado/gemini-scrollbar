@@ -1,3 +1,7 @@
+## 1.5.1 (2017-05-18)
+- [#47](../../pull/47) hide thumb when no more scroll needed
+- [#49](../../pull/49) hovering parent container reveals child container scrollbars
+
 ## 1.5.0 (2017-03-05)
 
 Feature:
