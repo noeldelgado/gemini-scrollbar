@@ -225,12 +225,16 @@
       this._thumbVerticalElement.style.height = this.minThumbSize + 'px';
     } else if (this._scrollTopMax) {
       this._thumbVerticalElement.style.height = this._naturalThumbSizeY + 'px';
+    } else {
+      this._thumbVerticalElement.style.height = '0px';
     }
 
     if (this._naturalThumbSizeX < this.minThumbSize) {
       this._thumbHorizontalElement.style.width = this.minThumbSize + 'px';
     } else if (this._scrollLeftMax) {
       this._thumbHorizontalElement.style.width = this._naturalThumbSizeX + 'px';
+    } else {
+      this._thumbHorizontalElement.style.width = '0px';
     }
 
     this._thumbSizeY = this._thumbVerticalElement.clientHeight;
