@@ -163,5 +163,9 @@ You can change the styles of the scrollbars using CSS. e.g:
 
 This way you can be sure the library will not touch/change your nodes structure. You can read more about the reason of this option [on this commit](https://github.com/noeldelgado/gemini-scrollbar/commit/2bb73c82f9d1588fb267fba08518adfe1170885c).
 
+## Related
+
+- [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar) - React Wrapper
+
 ## License
 MIT © [Noel Delgado](http://pixelia.me/)
