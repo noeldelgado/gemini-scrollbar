@@ -181,6 +181,7 @@
     var obj = document.createElement('object');
     addClass(obj, [CLASSNAMES.resizeTrigger]);
     obj.type = 'text/html';
+    obj.setAttribute('tabindex', '-1');
     var resizeHandler = this._resizeHandler.bind(this);
     obj.onload = function () {
       var win = obj.contentDocument.defaultView;
