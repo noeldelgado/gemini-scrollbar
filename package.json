@@ -2,21 +2,47 @@
   "private": true,
   "name": "gemini-scrollbar-gh-page",
   "scripts": {
-    "start": "npm i --global postcss-cli autoprefixer less watch browserify watchify live-reload",
-    "server": "python -m SimpleHTTPServer",
-    "js:browserify": "browserify src/js/app.js -o build/bundle.js",
-    "js:watch": "watchify src/js/app.js -o build/bundle.js -v",
-    "css:prefix": "postcss --use autoprefixer -b 'last 2 versions' build/bundle.css",
-    "css:less": "lessc src/less/app.less build/bundle.css",
-    "css:watch": "watch 'npm run css:less && npm run css:prefix' src/less",
-    "css:build": "lessc -x src/less/app.less build/bundle.css",
-    "livereload": "live-reload --port 9091 build/",
-    "build": "npm run css:build && npm run js:browserify"
+    "build": "tarima -fqe",
+    "watch": "tarima -des",
+    "start": "npm run watch"
   },
   "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
   "license": "MIT",
   "dependencies": {
-    "gemini-scrollbar": "^1.4.2",
+    "gemini-scrollbar": "^1.5.2",
     "sanitize.css": "^1.1.0"
+  },
+  "devDependencies": {
+    "chokidar": "^1.7.0",
+    "less": "^2.7.2",
+    "rollup": "^0.45.2",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "tarima": "^3.7.0",
+    "tarima-lr": "^0.3.2"
+  },
+  "tarima": {
+    "bundle": [
+      "src/js/app.js",
+      "src/less/app.less"
+    ],
+    "rollupFile": "rollup.config.js",
+    "public": "./",
+    "src": "./src/**/*",
+    "dest": "./build",
+    "watch": "**.html",
+    "rename": [
+      "src/**:bundle.{extname}"
+    ],
+    "devPlugins": [
+      "tarima-lr"
+    ],
+    "bundleOptions": {
+      "extensions": {
+        "js": "es6",
+        "css": "less"
+      }
+    }
   }
 }

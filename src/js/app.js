@@ -1,4 +1,4 @@
-var GeminiScrolllbar = require('gemini-scrollbar');
+import GeminiScrolllbar from 'gemini-scrollbar';
 
 new GeminiScrolllbar({
   element: document.body,
