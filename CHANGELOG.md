@@ -1,3 +1,6 @@
+## 1.5.2 (2017-08-01)
+- [#53](../../pull/53) prevent losing keyboard focus in object
+
 ## 1.5.1 (2017-05-18)
 - [#47](../../pull/47) hide thumb when no more scroll needed
 - [#49](../../pull/49) hovering parent container reveals child container scrollbars
