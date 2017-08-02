@@ -24,7 +24,7 @@ Check the scrollbar size. If the scrollbar size is zero (which means the scrollb
 
 ## Demo
 
-[http://noeldelgado.github.io/gemini-scrollbar/](http://noeldelgado.github.io/gemini-scrollbar/)
+https://noeldelgado.github.io/gemini-scrollbar/
 
 ## Dependencies
 None
@@ -165,7 +165,7 @@ This way you can be sure the library will not touch/change your nodes structure.
 
 ## Related
 
-- [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar) - React Wrapper
+- [react-gemini-scrollbar](https://github.com/noeldelgado/react-gemini-scrollbar) - React wrapper
 
 ## License
 MIT © [Noel Delgado](http://pixelia.me/)
