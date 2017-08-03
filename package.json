@@ -2,11 +2,8 @@
   "name": "gemini-scrollbar",
   "version": "1.4.2",
   "description": "Custom scrollbars with native scrolling",
-  "main": "lib/index.js",
-  "license": "MIT",
-  "repository": "noeldelgado/gemini-scrollbar.git",
-  "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
-  "homepage": "https://github.com/noeldelgado/gemini-scrollbar",
+  "main": "lib/index.umd.js",
+  "module": "lib/index.es.js",
   "scripts": {
     "build": "rollup -c",
     "prepublish": "npm run build"
@@ -15,6 +12,10 @@
     "lib/index.js",
     "gemini-scrollbar.css"
   ],
+  "license": "MIT",
+  "repository": "noeldelgado/gemini-scrollbar.git",
+  "author": "Noel Delgado <auhcsei@gmail.com> (http://pixelia.me/)",
+  "homepage": "https://github.com/noeldelgado/gemini-scrollbar",
   "keywords": [
     "native",
     "scrolling",
@@ -28,8 +29,12 @@
     "smooth-scroll"
   ],
   "devDependencies": {
-    "buble": "^0.12.5",
-    "rollup": "^0.34.1",
-    "rollup-plugin-buble": "^0.12.1"
+    "rollup": "^0.45.2",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  },
+  "dependencies": {
+    "dpr-change": "0.1.4"
   }
 }
