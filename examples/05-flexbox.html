@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../gemini-scrollbar.css">
+  <style>
+    /* for demo purposes only */
+    * {box-sizing: border-box}
+    .container {
+      display: flex;
+      // position: relative;
+      // width: 500px;
+      height: 200px;
+      border: 1px solid #ccc;
+    }
+    .inner {
+      overflow-x: auto;
+      flex: 1;
+    }
+    .inner:first-child {
+      background: Red;
+      flex: 2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flexbox</h1>
+  <div class="container flex">
+    <div class="inner">
+      <h2>Subtitle</h2>
+      <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, reiciendis totam nobis iste accusamus voluptas! Maiores tempore recusandae pariatur nulla consequuntur inventore accusantium molestias? Distinctio nemo culpa sapiente obcaecati officiis.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, reiciendis totam nobis iste accusamus voluptas! Maiores tempore recusandae pariatur nulla consequuntur inventore accusantium molestias? Distinctio nemo culpa sapiente obcaecati officiis.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, reiciendis totam nobis iste accusamus voluptas! Maiores tempore recusandae pariatur nulla consequuntur inventore accusantium molestias? Distinctio nemo culpa sapiente obcaecati officiis.</p>
+    </div>
+    <div class="inner">2</div>
+    <div class="inner">3</div>
+  </div>
+
+  <!-- gemini-scrollbar -->
+  <script src="../lib/index.umd.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    window.onload = function() {
+      window.ex = new GeminiScrollbar({
+        element: document.querySelector('.inner')
+      });
+      ex.create();
+    };
+  </script>
+</body>
+</html>
