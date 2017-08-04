@@ -1,3 +1,4 @@
+import json from 'rollup-plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import buble from 'rollup-plugin-buble';
@@ -9,6 +10,7 @@ export default [
     format: 'umd',
     moduleName: 'GeminiScrollbar',
     plugins: [
+      json(),
       resolve(),
       commonjs(),
       buble()
@@ -18,6 +20,9 @@ export default [
     entry: 'src/index.js',
     dest: 'lib/index.es.js',
     format: 'es',
-    external: ['dpr-change']
+    external: ['dpr-change'],
+    plugins: [
+      json()
+    ]
   }
 ];

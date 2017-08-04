@@ -1,25 +1,19 @@
 import DPR from 'dpr-change';
 import * as utils from './Gemini/utils';
-
-const CLASSNAMES = {
-  element: 'gm-scrollbar-container',
-  verticalScrollbar: 'gm-scrollbar -vertical',
-  horizontalScrollbar: 'gm-scrollbar -horizontal',
-  thumb: 'thumb',
-  view: 'gm-scroll-view',
-  autoshow: 'gm-autoshow',
-  disable: 'gm-scrollbar-disable-selection',
-  prevented: 'gm-prevented',
-  resizeTrigger: 'gm-resize-trigger',
-};
+import { CLASSNAMES } from './Gemini/constants';
+import { version } from '../package.json';
 
 const isIE = utils.isIE();
 
 let SCROLLBAR_WIDTH = 0;
 
-DPR.addEventListener('change', (r) => console.log(r));
+DPR.addEventListener('change', () => {
+  SCROLLBAR_WIDTH = utils.getScrollbarWidth();
+  GeminiScrollbar._instances.forEach(i => i.update());
+});
 
 export default class GeminiScrollbar {
+
   /* Returns the default options.
    * @private
    */
@@ -35,33 +29,50 @@ export default class GeminiScrollbar {
   }
 
   constructor(config = {}) {
+    GeminiScrollbar._instances.push(this);
+
     this.opts = Object.assign(this._defaults, config);
 
     SCROLLBAR_WIDTH = utils.getScrollbarWidth();
     this.DONT_CREATE_GEMINI = ((SCROLLBAR_WIDTH === 0) && (this.opts.forceGemini === false));
 
-    if (this.DONT_CREATE_GEMINI) {
-      utils.addClass(this.opts.element, [CLASSNAMES.prevented]);
-      return this;
-    }
-
     this._dom = {};
     this._handlers = {};
+    this._created = false;
     this._cursorDown = false;
     this._prevPageX = 0;
     this._prevPageY = 0;
 
     this._dom.doc = document;
     this._dom.body = document.body;
+  }
 
-    if (this.opts.createElements === true) this._createElements();
-    else this._cacheElements();
+  create() {
+    if (this.DONT_CREATE_GEMINI) {
+      utils.addClass(this.opts.element, [CLASSNAMES.prevented]);
+      return this;
+    }
+
+    if (this._created === true) {
+      console.warn('calling on a already-created object');
+      return this;
+    }
+
+    if (this.opts.createElements === true) {
+      this._createElements();
+    }
+    else {
+      this._cacheElements();
+    }
+
+    if (this.opts.autoshow) {
+      utils.addClass(this.opts.element, [CLASSNAMES.autoshow]);
+    }
 
     this._dom.resizeObject = (this.opts._createResizeObject)
       ? this._createResizeTrigger()
       : this.opts.element.querySelector(`.${CLASSNAMES.resizeTrigger}`);
 
-    if (this.opts.autoshow) utils.addClass(this.opts.element, [CLASSNAMES.autoshow]);
     utils.addClass(this.opts.element, [CLASSNAMES.element]);
     utils.addClass(this._dom.view, [CLASSNAMES.view]);
     utils.addClass(this._dom.vscrollbar, CLASSNAMES.verticalScrollbar.split(/\s/));
@@ -69,7 +80,9 @@ export default class GeminiScrollbar {
     utils.addClass(this._dom.vthumb, [CLASSNAMES.thumb]);
     utils.addClass(this._dom.hthumb, [CLASSNAMES.thumb]);
 
-    return this._bindEvents().update();
+    this._created = true;
+
+    this._bindEvents().update();
   }
 
   /*
@@ -78,9 +91,9 @@ export default class GeminiScrollbar {
    * @return GeminiScrollbar
    */
   update() {
-    if (this.DONT_CREATE_GEMINI) return this;
-
-    SCROLLBAR_WIDTH = utils.getScrollbarWidth();
+    if (this.DONT_CREATE_GEMINI) {
+      return this;
+    }
 
     let heightPercentage, widthPercentage;
 
@@ -337,3 +350,5 @@ export default class GeminiScrollbar {
     return void 0;
   }
 }
+
+GeminiScrollbar._instances = [];
