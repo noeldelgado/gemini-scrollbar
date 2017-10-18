@@ -344,6 +344,9 @@
   };
 
   GeminiScrollbar.prototype._clickVerticalTrackHandler = function _clickVerticalTrackHandler(e) {
+    if(e.target !== e.currentTarget) {
+      return;
+    }
     var offset = e.offsetY - this._naturalThumbSizeY * .5
       , thumbPositionPercentage = offset * 100 / this._scrollbarVerticalElement.clientHeight;
 
@@ -351,6 +354,9 @@
   };
 
   GeminiScrollbar.prototype._clickHorizontalTrackHandler = function _clickHorizontalTrackHandler(e) {
+    if(e.target !== e.currentTarget) {
+      return;
+    }
     var offset = e.offsetX - this._naturalThumbSizeX * .5
       , thumbPositionPercentage = offset * 100 / this._scrollbarHorizontalElement.clientWidth;
 
@@ -368,7 +374,6 @@
   };
 
   GeminiScrollbar.prototype._startDrag = function _startDrag(e) {
-    e.stopImmediatePropagation();
     this._cursorDown = true;
     addClass(document.body, [CLASSNAMES.disable]);
     this._document.addEventListener('mousemove', this._cache.events.mouseMoveDocumentHandler);
