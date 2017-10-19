@@ -1,3 +1,6 @@
+## 1.5.3 (2017-10-18)
+- [#56](../../pull/56) avoid stop propagation
+
 ## 1.5.2 (2017-08-01)
 - [#53](../../pull/53) prevent losing keyboard focus in object
 
