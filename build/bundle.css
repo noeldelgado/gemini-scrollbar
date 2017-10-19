@@ -136,7 +136,7 @@ footer {
 }
 /**
  * gemini-scrollbar
- * @version 1.5.2
+ * @version 1.5.3
  * @link http://noeldelgado.github.io/gemini-scrollbar/
  * @license MIT
  */
@@ -251,6 +251,7 @@ html {
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 1;
 }
 .github-corner:hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
