@@ -4,7 +4,6 @@
 
 html {
   height: 100%;
-  overflow: hidden;
 }
 
 /* github corner */
@@ -83,6 +82,13 @@ h2 {
 }
 
 body {
+
+  &.gm-prevented {
+    overflow: auto !important;
+    width: initial;
+    height: initial;
+  }
+
   > .gm-scrollbar {
     &.-vertical {
       left: 6px;
@@ -476,7 +482,7 @@ body {
     bottom: 0;
     width: 17px;
     border-left: 1px solid #CECECE;
-    padding: 10px 5px;
+    padding: 0px 5px;
     border-radius: 0;
 
     .thumb {

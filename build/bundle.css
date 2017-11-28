@@ -244,7 +244,6 @@ footer {
 
 html {
   height: 100%;
-  overflow: hidden;
 }
 /* github corner */
 .github-corner {
@@ -320,6 +319,11 @@ h2 small {
   text-align: center;
   opacity: .6;
   font-weight: bold;
+}
+body.gm-prevented {
+  overflow: auto !important;
+  width: initial;
+  height: initial;
 }
 body > .gm-scrollbar.-vertical {
   left: 6px;
@@ -644,7 +648,7 @@ body > .gm-scrollbar .thumb:active {
   bottom: 0;
   width: 17px;
   border-left: 1px solid #CECECE;
-  padding: 10px 5px;
+  padding: 0px 5px;
   border-radius: 0;
 }
 .ex4 .gm-scrollbar.-vertical .thumb {
