@@ -24,6 +24,5 @@
     "mousewheel",
     "trackpad",
     "smooth-scroll"
-  ],
-  "devDependencies": {}
+  ]
 }
