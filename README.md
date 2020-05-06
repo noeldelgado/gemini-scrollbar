@@ -2,8 +2,10 @@
 
 [![npm-image](https://img.shields.io/npm/v/gemini-scrollbar.svg)](https://www.npmjs.com/package/gemini-scrollbar)
 ![bower-image](https://img.shields.io/bower/v/gemini-scrollbar.svg)
-[![Known Vulnerabilities](https://snyk.io/test/npm/gemini-scrollbar/badge.svg)](https://snyk.io/test/npm/gemini-scrollbar)
 ![license-image](https://img.shields.io/npm/l/gemini-scrollbar.svg)
+[![Known Vulnerabilities](https://snyk.io/test/npm/gemini-scrollbar/badge.svg)](https://snyk.io/test/npm/gemini-scrollbar)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/noeldelgado/gemini-scrollbar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/noeldelgado/gemini-scrollbar/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/noeldelgado/gemini-scrollbar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/noeldelgado/gemini-scrollbar/context:javascript)
 
 Custom overlay-scrollbars with native scrolling mechanism for web applications (if needed).
 
