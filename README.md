@@ -4,6 +4,7 @@
 ![bower-image](https://img.shields.io/bower/v/gemini-scrollbar.svg)
 ![license-image](https://img.shields.io/npm/l/gemini-scrollbar.svg)
 [![Known Vulnerabilities](https://snyk.io/test/npm/gemini-scrollbar/badge.svg)](https://snyk.io/test/npm/gemini-scrollbar)
+[![Dependencies](https://img.shields.io/david/noeldelgado/gemini-scrollbar.svg)](https://david-dm.org/noeldelgado/gemini-scrollbar)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/noeldelgado/gemini-scrollbar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/noeldelgado/gemini-scrollbar/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/noeldelgado/gemini-scrollbar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/noeldelgado/gemini-scrollbar/context:javascript)
 
