@@ -2,7 +2,7 @@
 
 [![npm-image](https://img.shields.io/npm/v/gemini-scrollbar.svg)](https://www.npmjs.com/package/gemini-scrollbar)
 ![bower-image](https://img.shields.io/bower/v/gemini-scrollbar.svg)
-[![Known Vulnerabilities](https://snyk.io/test/npm/gemini-scrollbar/1.5.3/badge.svg)](https://snyk.io/test/npm/gemini-scrollbar/1.5.3)
+[![Known Vulnerabilities](https://snyk.io/test/npm/gemini-scrollbar/badge.svg)](https://snyk.io/test/npm/gemini-scrollbar)
 ![license-image](https://img.shields.io/npm/l/gemini-scrollbar.svg)
 
 Custom overlay-scrollbars with native scrolling mechanism for web applications (if needed).
