@@ -182,7 +182,16 @@
     addClass(obj, [CLASSNAMES.resizeTrigger]);
     obj.type = 'text/html';
     obj.setAttribute('tabindex', '-1');
-    obj.textContent = 'Resize trigger';
+    /* [INFO] Required for previous Lighthouse versions,
+    but not required for Lighthouse 11.4.0:
+
+    obj.textContent = 'Resize trigger'; */
+
+    /* [INFO] <object> elements must have alternate text:
+    https://dequeuniversity.com/rules/axe/4.8/object-alt
+
+    This attribute required for Lighthouse 11.4.0. */
+    obj.setAttribute('aria-label', 'Resize trigger');
     var resizeHandler = this._resizeHandler.bind(this);
     obj.onload = function () {
       var win = obj.contentDocument.defaultView;
